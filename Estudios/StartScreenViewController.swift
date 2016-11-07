@@ -89,5 +89,12 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate {
             present(ac, animated: true, completion: nil)
         }
     }
+    
+    @IBAction func iForgot(_ sender: UIButton) {
+        let ac = UIAlertController(title: "Password Recovery", message: "We're hard at implementing this functionality.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
+        
+        present(ac, animated: true, completion: nil)
+    }
 
 }

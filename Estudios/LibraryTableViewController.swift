@@ -7,13 +7,26 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
+import PermissionScope
 
-class LibraryTableViewController: UITableViewController {
+class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
     var userCoursesIndexes = [Int]()
+    let permissionScope = PermissionScope()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard DataHolder.sharedInstance.user != nil else {
+            return
+        }
+        
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
+        
+        permissionScope.addPermission(ContactsPermission(), message: "We use this to steal\r\nyour friends")
+        permissionScope.addPermission(NotificationsPermission(), message: "We use this to send you\r\nspam and love notes")
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -22,6 +35,16 @@ class LibraryTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        permissionScope.show()
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "No Courses Yet")
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "You can enroll to a new course by tapping '+' button using the promo-code your instructor has gave you.")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -135,11 +158,11 @@ class LibraryTableViewController: UITableViewController {
     
     // MARK: - Rewinding
     
-    @IBAction func rewindToLibrary(sender: UIStoryboardSegue) {
+    @IBAction func rewindToLibrary(_ sender: UIStoryboardSegue) {
         
     }
     
-    @IBAction func rewindToLibraryViewAndLogOut(sender: UIStoryboardSegue) {
+    @IBAction func rewindToLibraryViewAndLogOut(_ sender: UIStoryboardSegue) {
         DataHolder.sharedInstance.user = nil
     }
 

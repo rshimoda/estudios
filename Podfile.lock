@@ -1,0 +1,45 @@
+PODS:
+  - Alamofire (4.0.1)
+  - ChameleonFramework (2.1.0):
+    - ChameleonFramework/Default (= 2.1.0)
+  - ChameleonFramework/Default (2.1.0)
+  - DZNEmptyDataSet (1.8.1)
+  - Eureka (2.0.0-beta.1)
+  - PermissionScope (1.0.3)
+  - SwiftyJSON (3.1.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - ChameleonFramework (from `https://github.com/ViccAlexander/Chameleon.git`, branch `swift3`)
+  - DZNEmptyDataSet
+  - Eureka (~> 2.0.0-beta.1)
+  - PermissionScope (from `https://github.com/nickoneill/PermissionScope.git`, branch `swift3`)
+  - SwiftyJSON
+
+EXTERNAL SOURCES:
+  ChameleonFramework:
+    :branch: swift3
+    :git: https://github.com/ViccAlexander/Chameleon.git
+  PermissionScope:
+    :branch: swift3
+    :git: https://github.com/nickoneill/PermissionScope.git
+
+CHECKOUT OPTIONS:
+  ChameleonFramework:
+    :commit: c400c32eead1c6e74008983c3e7c845ae069b41d
+    :git: https://github.com/ViccAlexander/Chameleon.git
+  PermissionScope:
+    :commit: 7c2d33048f8d17e117f76022967796a014fd8092
+    :git: https://github.com/nickoneill/PermissionScope.git
+
+SPEC CHECKSUMS:
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Eureka: d014adf16406745e1a78d5790ea37ed130a0a8e5
+  PermissionScope: 3ee3e8a4a962b7621400c136a63ae1e16ecf1718
+  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
+
+PODFILE CHECKSUM: 29398beb6a3d07b141b62027018eb10455b6276a
+
+COCOAPODS: 1.0.0

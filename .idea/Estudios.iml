@@ -7,11 +7,11 @@
       <sourceFolder url="file://$MODULE_DIR$/Estudios/StartScreenViewController.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Estudios/AccountTableViewController.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Estudios/LibraryTableViewController.swift" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Estudios/Assets.xcassets" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Estudios/Info.plist" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Estudios/CourseTableViewCell.swift" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Estudios/User.swift" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Estudios/Info.plist" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Estudios/DataHolder.swift" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Estudios/User.swift" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Estudios/Assets.xcassets" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Estudios/Base.lproj/LaunchScreen.storyboard" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Estudios/Base.lproj/Main.storyboard" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Estudios/UserValidator.swift" isTestSource="false" />
