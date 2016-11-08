@@ -26,9 +26,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gjs-Gq-Xsy">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gjs-Gq-Xsy" customClass="SpringImageView" customModule="Estudios" customModuleProvider="target">
                                 <rect key="frame" x="120" y="85" width="135" height="83"/>
                                 <color key="tintColor" red="0.40784313729999999" green="0.52941176469999995" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autohide" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBT-yz-16y">
                                 <rect key="frame" x="327" y="284.5" width="48" height="98"/>
@@ -114,6 +125,18 @@
                                     <constraint firstItem="Nm5-Nm-AXr" firstAttribute="leading" secondItem="WPz-RF-hi6" secondAttribute="leading" id="NQo-sh-Pun"/>
                                     <constraint firstItem="Nm5-Nm-AXr" firstAttribute="top" secondItem="WPz-RF-hi6" secondAttribute="top" constant="48" id="whw-RZ-fN7"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQ9-Lw-kdc">
                                 <rect key="frame" x="139.5" y="397.5" width="96" height="42"/>
@@ -139,12 +162,20 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estudios" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvn-gq-Zx6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estudios" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvn-gq-Zx6" customClass="SpringLabel" customModule="Estudios" customModuleProvider="target">
                                 <rect key="frame" x="128.5" y="182.5" width="118.5" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autohide" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="zoomIn"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="itA-Yl-2DC">
+                                <rect key="frame" x="177" y="408" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -157,6 +188,7 @@
                             <constraint firstItem="UQ9-Lw-kdc" firstAttribute="top" secondItem="WPz-RF-hi6" secondAttribute="bottom" constant="15" id="I5n-GM-Owz"/>
                             <constraint firstItem="jBT-yz-16y" firstAttribute="leading" secondItem="WPz-RF-hi6" secondAttribute="trailing" constant="20" id="JCz-Ix-AQi"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="top" secondItem="WPz-RF-hi6" secondAttribute="top" id="Old-rh-SXg"/>
+                            <constraint firstItem="itA-Yl-2DC" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="Pvr-GZ-qGq"/>
                             <constraint firstItem="gjs-Gq-Xsy" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="bCs-KD-w8K"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="centerY" secondItem="OmZ-y2-Buv" secondAttribute="centerY" id="eVD-IW-c5a"/>
                             <constraint firstItem="WPz-RF-hi6" firstAttribute="top" secondItem="bvn-gq-Zx6" secondAttribute="bottom" multiplier="5:4" constant="8" symbolic="YES" id="mCb-pR-VFr"/>
@@ -167,10 +199,12 @@
                             <constraint firstItem="gF9-UK-FhP" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="w8K-id-CJm"/>
                             <constraint firstItem="WPz-RF-hi6" firstAttribute="centerX" secondItem="UQ9-Lw-kdc" secondAttribute="centerX" id="xdm-bh-LbD"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="bottom" secondItem="WPz-RF-hi6" secondAttribute="bottom" id="ynw-TA-uV3"/>
+                            <constraint firstItem="itA-Yl-2DC" firstAttribute="centerY" secondItem="UQ9-Lw-kdc" secondAttribute="centerY" id="yzS-Fg-41F"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qeK-ry-8bJ"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="itA-Yl-2DC" id="zTr-KP-4FV"/>
                         <outlet property="mailTextField" destination="wVN-Ia-A2B" id="Vjf-BQ-cIb"/>
                         <outlet property="passwordTextField" destination="6uf-Yt-1Y3" id="jc2-UC-N5Z"/>
                         <outlet property="signInButton" destination="UQ9-Lw-kdc" id="ab1-Ku-evb"/>
@@ -197,7 +231,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lxm-mI-PTR" id="zSl-Kx-vNp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4lZ-KT-mIb">
@@ -278,7 +312,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fPt-IC-2fa" id="ZKb-ZQ-D9l">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -320,7 +354,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pLz-4o-8Zo" id="Isj-G8-pcJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Een-Tb-xHP">
@@ -448,7 +482,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="89"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cjs-ne-cEh" id="6Dw-5i-bp4">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="88"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gKH-8A-TW2">
@@ -504,7 +538,7 @@
                                         <rect key="frame" x="0.0" y="160" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Okj-QT-hlu" id="tlG-uT-1hc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGA-ML-PFP">

@@ -20,6 +20,7 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var textViewHolder: UIView!
     @IBOutlet weak var upperTextFieldHolder: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let userValidator = UserValidator()
     
