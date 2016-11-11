@@ -39,7 +39,7 @@
 		8C5533C21DD0CA57009EBC10 /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5533A51DD0CA57009EBC10 /* UnwindSegue.swift */; };
 		8C5562681D971D75000B296F /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5562671D971D75000B296F /* AccountTableViewController.swift */; };
 		8C7981F51DA19520008954B9 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7981F41DA19520008954B9 /* Course.swift */; };
-		8C9B13D31DCFE8250055A86E /* ManagedCoursesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9B13D21DCFE8250055A86E /* ManagedCoursesTableViewController.swift */; };
+		8C97DAFE1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97DAFD1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift */; };
 		8CA78A2C1D95A73200365351 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA78A2B1D95A73200365351 /* AppDelegate.swift */; };
 		8CA78A311D95A73300365351 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CA78A2F1D95A73300365351 /* Main.storyboard */; };
 		8CA78A331D95A73300365351 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CA78A321D95A73300365351 /* Assets.xcassets */; };
@@ -96,7 +96,7 @@
 		8C5533A51DD0CA57009EBC10 /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		8C5562671D971D75000B296F /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		8C7981F41DA19520008954B9 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
-		8C9B13D21DCFE8250055A86E /* ManagedCoursesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedCoursesTableViewController.swift; sourceTree = "<group>"; };
+		8C97DAFD1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCreationTableViewController.swift; sourceTree = "<group>"; };
 		8CA78A281D95A73200365351 /* Estudios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Estudios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA78A2B1D95A73200365351 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CA78A301D95A73300365351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 				8C5562671D971D75000B296F /* AccountTableViewController.swift */,
 				8CA78A431D95B1D400365351 /* StartScreenViewController.swift */,
 				8CA78A3D1D95AEA600365351 /* LibraryTableViewController.swift */,
-				8C9B13D21DCFE8250055A86E /* ManagedCoursesTableViewController.swift */,
+				8C97DAFD1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift */,
 				8C4035711D991468000FB4CF /* CourseTableViewCell.swift */,
 				8CA78A3F1D95AFF900365351 /* DataHolder.swift */,
 				8CE4E2371D96F77200DA4265 /* UserValidator.swift */,
@@ -433,6 +433,7 @@
 				8C5533BD1DD0CA57009EBC10 /* SpringTextField.swift in Sources */,
 				8C5533AE1DD0CA57009EBC10 /* DesignableTextField.swift in Sources */,
 				8C5562681D971D75000B296F /* AccountTableViewController.swift in Sources */,
+				8C97DAFE1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift in Sources */,
 				8C5533C01DD0CA57009EBC10 /* TransitionManager.swift in Sources */,
 				8C5533AA1DD0CA57009EBC10 /* DesignableButton.swift in Sources */,
 				8C5533BC1DD0CA57009EBC10 /* SpringLabel.swift in Sources */,
@@ -446,7 +447,6 @@
 				8C5533AC1DD0CA57009EBC10 /* DesignableLabel.swift in Sources */,
 				8C5533C11DD0CA57009EBC10 /* TransitionZoom.swift in Sources */,
 				8C5533B11DD0CA57009EBC10 /* ImageLoader.swift in Sources */,
-				8C9B13D31DCFE8250055A86E /* ManagedCoursesTableViewController.swift in Sources */,
 				8CE4E2381D96F77200DA4265 /* UserValidator.swift in Sources */,
 				8C5533AF1DD0CA57009EBC10 /* DesignableTextView.swift in Sources */,
 				8C5533B31DD0CA57009EBC10 /* KeyboardLayoutConstraint.swift in Sources */,

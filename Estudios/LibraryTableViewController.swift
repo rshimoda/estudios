@@ -25,7 +25,6 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
         
-        permissionScope.addPermission(ContactsPermission(), message: "We use this to steal\r\nyour friends")
         permissionScope.addPermission(NotificationsPermission(), message: "We use this to send you\r\nspam and love notes")
         
         // Uncomment the following line to preserve selection between presentations
@@ -143,16 +142,33 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     // MARK: - Add a New Course
     
     @IBAction func addNewCourse(_ sender: UIBarButtonItem) {
+        if DataHolder.sharedInstance.user!.isInstructor {
+            let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            ac.addAction(UIAlertAction(title: "Create a New Course", style: .default, handler: {(UIAlertAction) -> Void in
+                self.performSegue(withIdentifier: "CreateNewCourse", sender: self)
+            }))
+            ac.addAction(UIAlertAction(title: "Apply to the Course", style: .default, handler: {(UIAlertAction) -> Void in
+                self.openPromoField()
+            }))
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(ac, animated: true, completion: nil)
+        } else {
+            openPromoField()
+        }
+    }
+    
+    func openPromoField() {
         let ac = UIAlertController(title: "Enter enroll code", message: nil, preferredStyle: .alert)
         ac.addTextField(configurationHandler: { (textField) -> Void in
             textField.placeholder = "CS193p"
-            })
+        })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
             DataHolder.sharedInstance.add(current: DataHolder.sharedInstance.user!, to: ac.textFields!.first!.text ?? "")
             self.reloadData()
-            }))
+        }))
         present(ac, animated: true, completion: nil)
+
     }
     
     
