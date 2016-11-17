@@ -25,6 +25,8 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
         
+        userCoursesIndexes = DataHolder.sharedInstance.fetchCourses()
+        
         permissionScope.addPermission(NotificationsPermission(), message: "We use this to send you\r\nspam and love notes")
         
         // Uncomment the following line to preserve selection between presentations
@@ -36,14 +38,6 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         permissionScope.show()
-    }
-    
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "No Courses Yet")
-    }
-    
-    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "You can enroll to a new course by tapping '+' button using the promo-code your instructor has gave you.")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,25 +53,33 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         }
     }
     
-    func reloadData() {
-        // TODO: - update userCoursesIndexes with .map(...)
-        tableView.reloadData()
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func reloadData() {
+        userCoursesIndexes = DataHolder.sharedInstance.fetchCourses()
+        tableView.reloadData()
+    }
+    
+    // MARK: - DZEmptyDataSet
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "No Courses Yet")
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "You can enroll to a new course by tapping '+' button using the promo-code your instructor has gave you.")
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return userCoursesIndexes.count
     }
 
@@ -86,9 +88,9 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         let cell = tableView.dequeueReusableCell(withIdentifier: "courseCell", for: indexPath) as! CourseTableViewCell
 
         // Configure the cell...
-        cell.courseName.text = DataHolder.sharedInstance.courses[indexPath.row].name
-        cell.instructorName.text = "\(DataHolder.sharedInstance.courses[indexPath.row].instructor)"
-        cell.courseImage.image = DataHolder.sharedInstance.courses[indexPath.row].image
+        cell.courseName.text = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].name
+        cell.instructorName.text = "\(DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].instructor.firstName) \(DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].instructor.lastName)"
+        cell.courseImage.image = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].image
 
         return cell
     }
@@ -150,7 +152,9 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             ac.addAction(UIAlertAction(title: "Apply to the Course", style: .default, handler: {(UIAlertAction) -> Void in
                 self.openPromoField()
             }))
-            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: NSAttributedString(string: "Cancel", attributes: [NSForegroundColorAttributeName: UIColor.red]).string, style: .cancel, handler: nil))
+            ac.view.tintColor = UIColor.darkText
+            
             self.present(ac, animated: true, completion: nil)
         } else {
             openPromoField()
@@ -180,6 +184,10 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     
     @IBAction func rewindToLibraryViewAndLogOut(_ sender: UIStoryboardSegue) {
         DataHolder.sharedInstance.user = nil
+    }
+    
+    @IBAction func saveCourse(_ sender: UIStoryboardSegue) {
+        reloadData()
     }
 
 }

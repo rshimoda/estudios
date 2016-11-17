@@ -8,10 +8,18 @@
 
 import UIKit
 
-class CourseCreationTableViewController: UITableViewController {
+class CourseCreationTableViewController: UITableViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var courseNameTextFiled: UITextField!
+    @IBOutlet weak var courseShortNameTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var nextButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        courseNameTextFiled.delegate = self
+        courseShortNameTextField.delegate = self
         
         self.hideKeyboardWhenTappedAround()
 
@@ -21,23 +29,27 @@ class CourseCreationTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        nextButton.isEnabled = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        nextButton.isEnabled = !(courseNameTextFiled.text == nil || courseShortNameTextField.text == nil)
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 2
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        return 2
+//    }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
-    }
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return 1
+//    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,14 +96,18 @@ class CourseCreationTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
+    // TODO: - Add Safety Checks
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if var dvc = segue.destination as? CourseCreationDelegate {
+            dvc.course = Course(name: courseNameTextFiled.text ?? "", description: descriptionTextField.text ?? "", instructor: DataHolder.sharedInstance.user!, promo: courseShortNameTextField.text ?? "")
+        }
     }
-    */
+ 
 
 }

@@ -14,6 +14,10 @@ class Course {
     var description: String
     var image: UIImage?
     
+    var duration: String
+    var level: String
+    var type: String
+    
     let promo: String
     
     let instructor: User
@@ -26,6 +30,9 @@ class Course {
         self.description = description
         self.instructor = instructor
         self.promo = promo
+        self.duration = ""
+        self.level = ""
+        self.type = ""
     }
     
 }

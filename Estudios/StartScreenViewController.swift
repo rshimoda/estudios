@@ -15,6 +15,7 @@ protocol StartScreenDelegate {
 
 class StartScreenViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var logoImage: SpringImageView!
     @IBOutlet weak var mailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
@@ -42,9 +43,10 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate {
         upperTextFieldHolder.layer.borderWidth = 0.5
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        let lImage = UIImage(named: "graduation")?.withRenderingMode(.alwaysTemplate)
+        logoImage.image = lImage
+        logoImage.alpha = 0.8
     }
     
     // MARK: - UITextFieldDelegate

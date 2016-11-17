@@ -17,7 +17,7 @@
         <!--Start Screen View Controller-->
         <scene sceneID="wfx-dO-Lha">
             <objects>
-                <viewController id="5Sp-iM-Al8" customClass="StartScreenViewController" customModule="Estudios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" id="5Sp-iM-Al8" customClass="StartScreenViewController" customModule="Estudios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qH1-2S-ee2"/>
                         <viewControllerLayoutGuide type="bottom" id="PRG-Qr-m6W"/>
@@ -26,31 +26,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gjs-Gq-Xsy" customClass="SpringImageView" customModule="Estudios" customModuleProvider="target">
-                                <rect key="frame" x="120" y="85" width="135" height="83"/>
-                                <color key="tintColor" red="0.40784313729999999" green="0.52941176469999995" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LWbackground" translatesAutoresizingMaskIntoConstraints="NO" id="nDd-dH-MsB" customClass="SpringImageView" customModule="Estudios" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="zoomIn"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autohide" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                        <real key="value" value="2"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="velocity">
+                                        <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="force">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="curve" value="linear"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="damping">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBT-yz-16y">
-                                <rect key="frame" x="327" y="284.5" width="48" height="98"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="327" y="285" width="48" height="98"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KkZ-8i-hS6">
-                                <rect key="frame" x="0.0" y="284.5" width="48" height="98"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="285" width="48" height="98"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPz-RF-hi6" userLabel="AuthorizationFieldsView">
-                                <rect key="frame" x="68" y="284.5" width="239" height="98"/>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPz-RF-hi6" userLabel="AuthorizationFieldsView">
+                                <rect key="frame" x="68" y="285" width="239" height="98"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wDf-SQ-7NU">
                                         <rect key="frame" x="0.0" y="0.0" width="239" height="48"/>
@@ -114,6 +121,7 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Nm5-Nm-AXr" secondAttribute="trailing" id="35F-7p-GQh"/>
                                     <constraint firstItem="wDf-SQ-7NU" firstAttribute="top" secondItem="WPz-RF-hi6" secondAttribute="top" id="6af-Iq-asH"/>
@@ -138,23 +146,23 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQ9-Lw-kdc">
-                                <rect key="frame" x="139.5" y="397.5" width="96" height="42"/>
+                            <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQ9-Lw-kdc">
+                                <rect key="frame" x="140" y="398" width="96" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Sign In...">
-                                    <color key="titleColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="signIn:" destination="5Sp-iM-Al8" eventType="touchUpInside" id="TVk-nW-8Kl"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gF9-UK-FhP">
-                                <rect key="frame" x="89.5" y="541" width="196" height="30"/>
+                                <rect key="frame" x="90" y="541" width="196" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpT-7B-gIn">
+                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpT-7B-gIn">
                                         <rect key="frame" x="0.0" y="0.0" width="196" height="30"/>
                                         <state key="normal" title="Forgot User ID or Password?">
-                                            <color key="titleColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="iForgot:" destination="5Sp-iM-Al8" eventType="touchUpInside" id="EUv-93-ScP"/>
@@ -163,9 +171,9 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estudios" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvn-gq-Zx6" customClass="SpringLabel" customModule="Estudios" customModuleProvider="target">
-                                <rect key="frame" x="128.5" y="182.5" width="118.5" height="38.5"/>
+                                <rect key="frame" x="128.5" y="183.5" width="118.5" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
@@ -174,8 +182,17 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="itA-Yl-2DC">
-                                <rect key="frame" x="177" y="408" width="20" height="20"/>
+                                <rect key="frame" x="177" y="409" width="20" height="20"/>
                             </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gjs-Gq-Xsy" customClass="SpringImageView" customModule="Estudios" customModuleProvider="target">
+                                <rect key="frame" x="120" y="86" width="135" height="83"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autohide" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -187,14 +204,18 @@
                             <constraint firstItem="WPz-RF-hi6" firstAttribute="leading" secondItem="KkZ-8i-hS6" secondAttribute="trailing" constant="20" id="B39-NU-Xnn"/>
                             <constraint firstItem="UQ9-Lw-kdc" firstAttribute="top" secondItem="WPz-RF-hi6" secondAttribute="bottom" constant="15" id="I5n-GM-Owz"/>
                             <constraint firstItem="jBT-yz-16y" firstAttribute="leading" secondItem="WPz-RF-hi6" secondAttribute="trailing" constant="20" id="JCz-Ix-AQi"/>
+                            <constraint firstItem="nDd-dH-MsB" firstAttribute="trailing" secondItem="jBT-yz-16y" secondAttribute="trailing" id="JQM-yp-ZeU"/>
+                            <constraint firstItem="nDd-dH-MsB" firstAttribute="leading" secondItem="KkZ-8i-hS6" secondAttribute="leading" id="KX6-8y-VwX"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="top" secondItem="WPz-RF-hi6" secondAttribute="top" id="Old-rh-SXg"/>
                             <constraint firstItem="itA-Yl-2DC" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="Pvr-GZ-qGq"/>
                             <constraint firstItem="gjs-Gq-Xsy" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="bCs-KD-w8K"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="centerY" secondItem="OmZ-y2-Buv" secondAttribute="centerY" id="eVD-IW-c5a"/>
                             <constraint firstItem="WPz-RF-hi6" firstAttribute="top" secondItem="bvn-gq-Zx6" secondAttribute="bottom" multiplier="5:4" constant="8" symbolic="YES" id="mCb-pR-VFr"/>
+                            <constraint firstItem="nDd-dH-MsB" firstAttribute="bottom" secondItem="PRG-Qr-m6W" secondAttribute="top" id="mb0-Fi-1Lt"/>
                             <constraint firstItem="bvn-gq-Zx6" firstAttribute="centerX" secondItem="WPz-RF-hi6" secondAttribute="centerX" id="rQ0-p5-rZg"/>
                             <constraint firstItem="jBT-yz-16y" firstAttribute="height" secondItem="KkZ-8i-hS6" secondAttribute="height" id="tDC-OE-B00"/>
                             <constraint firstItem="gjs-Gq-Xsy" firstAttribute="top" secondItem="qH1-2S-ee2" secondAttribute="bottom" constant="65" id="tGe-9v-uTr"/>
+                            <constraint firstItem="nDd-dH-MsB" firstAttribute="centerY" secondItem="KkZ-8i-hS6" secondAttribute="centerY" id="uVL-Sk-KiU"/>
                             <constraint firstItem="jBT-yz-16y" firstAttribute="width" secondItem="KkZ-8i-hS6" secondAttribute="width" id="vns-Q6-xk8"/>
                             <constraint firstItem="gF9-UK-FhP" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="w8K-id-CJm"/>
                             <constraint firstItem="WPz-RF-hi6" firstAttribute="centerX" secondItem="UQ9-Lw-kdc" secondAttribute="centerX" id="xdm-bh-LbD"/>
@@ -203,14 +224,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qeK-ry-8bJ"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="itA-Yl-2DC" id="zTr-KP-4FV"/>
+                        <outlet property="logoImage" destination="gjs-Gq-Xsy" id="WLE-ZK-Ge6"/>
                         <outlet property="mailTextField" destination="wVN-Ia-A2B" id="Vjf-BQ-cIb"/>
                         <outlet property="passwordTextField" destination="6uf-Yt-1Y3" id="jc2-UC-N5Z"/>
                         <outlet property="signInButton" destination="UQ9-Lw-kdc" id="ab1-Ku-evb"/>
                         <outlet property="textViewHolder" destination="WPz-RF-hi6" id="xhC-TZ-EAn"/>
                         <outlet property="upperTextFieldHolder" destination="wDf-SQ-7NU" id="qGC-eu-C6i"/>
-                        <segue destination="uEx-S4-yj7" kind="show" identifier="OpenCourseLibrary" id="SXr-qZ-UZz"/>
+                        <segue destination="uEx-S4-yj7" kind="presentation" identifier="OpenCourseLibrary" modalTransitionStyle="flipHorizontal" id="SXr-qZ-UZz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbH-vE-P5I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -227,27 +252,27 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="courseCell" rowHeight="90" id="Lxm-mI-PTR" customClass="CourseTableViewCell" customModule="Estudios" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="courseCell" rowHeight="120" id="Lxm-mI-PTR" customClass="CourseTableViewCell" customModule="Estudios" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lxm-mI-PTR" id="zSl-Kx-vNp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4lZ-KT-mIb">
-                                            <rect key="frame" x="8" y="8" width="73.5" height="73.5"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newCourseCover" translatesAutoresizingMaskIntoConstraints="NO" id="4lZ-KT-mIb">
+                                            <rect key="frame" x="8" y="8" width="104" height="104"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="4lZ-KT-mIb" secondAttribute="height" multiplier="1:1" id="o1V-nM-1Ub"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Course Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdl-IP-O8B">
-                                            <rect key="frame" x="89.5" y="21" width="128.5" height="25.5"/>
+                                            <rect key="frame" x="120" y="32" width="129" height="26"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpz-az-njv">
-                                            <rect key="frame" x="89.5" y="49.5" width="74.5" height="20.5"/>
+                                            <rect key="frame" x="120" y="69" width="75" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -278,20 +303,22 @@
                     <tabBarItem key="tabBarItem" title="My Courses" image="courses" id="hUV-sK-nyt"/>
                     <navigationItem key="navigationItem" id="pth-Wk-uvR">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="nul-91-PHe">
-                            <color key="tintColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.85176798761677486" green="0.85784120903072847" blue="0.87606087327258886" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addNewCourse:" destination="pGw-2W-0a3" id="Tcz-e0-mZQ"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="user" id="RMI-E0-DEY">
-                            <color key="tintColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.8805369756108351" green="0.89009073715241571" blue="0.91875202177715742" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="Du7-JC-4LI" kind="show" id="vW1-p2-nIi"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
-                        <segue destination="ByW-NW-koT" kind="show" identifier="LogIn" id="FDd-o8-PaF"/>
+                        <segue destination="ByW-NW-koT" kind="show" identifier="LogIn" animates="NO" id="FDd-o8-PaF"/>
                         <segue destination="o1b-7b-iDj" kind="presentation" identifier="CreateNewCourse" id="wPn-MB-YPB"/>
                     </connections>
                 </tableViewController>
@@ -307,6 +334,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection id="K86-LP-9wA">
                                 <cells>
@@ -317,16 +345,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5M-qX-N3E">
+                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5M-qX-N3E">
                                                     <rect key="frame" x="107" y="0.0" width="260" height="90"/>
                                                     <subviews>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Course Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yKb-pP-tYD">
+                                                        <textField opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Course Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yKb-pP-tYD">
                                                             <rect key="frame" x="8" y="0.0" width="252" height="45"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Short Name - e.g. CS193p" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tXq-v8-5Ba">
+                                                        <textField opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Short Name - e.g. CS193p" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tXq-v8-5Ba">
                                                             <rect key="frame" x="8" y="45" width="252" height="45"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -334,7 +362,7 @@
                                                         </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.37192475470000003" green="0.67484642800000005" blue="0.0057978131340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="yKb-pP-tYD" firstAttribute="top" secondItem="C5M-qX-N3E" secondAttribute="top" id="3nI-EL-B6m"/>
                                                         <constraint firstItem="yKb-pP-tYD" firstAttribute="leading" secondItem="C5M-qX-N3E" secondAttribute="leading" constant="8" id="6Bh-sg-SmD"/>
@@ -365,7 +393,6 @@
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             <color key="tintColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             <constraints>
                                                 <constraint firstItem="C5M-qX-N3E" firstAttribute="leading" secondItem="Een-Tb-xHP" secondAttribute="trailing" constant="8" id="ENg-tL-5t9"/>
@@ -381,7 +408,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Course Description" footerTitle="All fields are required unless marked optional. Settings can be changed later in Course Settings." id="2UM-l5-9Kk">
+                            <tableViewSection headerTitle="Course Description (Optional)" footerTitle="All fields are required unless marked optional. Settings can be changed later in Course Settings." id="2UM-l5-9Kk">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="170" id="B01-H1-KFg">
                                         <rect key="frame" x="0.0" y="189" width="375" height="170"/>
@@ -393,7 +420,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5O-oj-p1s">
                                                     <rect key="frame" x="8" y="0.0" width="359" height="170"/>
                                                     <subviews>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="Enter Desription" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K28-Xx-2Gf">
+                                                        <textField opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="Enter Desription" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K28-Xx-2Gf">
                                                             <rect key="frame" x="8" y="8" width="357" height="162"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -421,6 +448,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
+                                            <color key="tintColor" red="0.37192475470000003" green="0.67484642800000005" blue="0.0057978131340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="v5O-oj-p1s" firstAttribute="trailing" secondItem="oKD-cp-uET" secondAttribute="trailingMargin" id="8xD-oN-ecC"/>
                                                 <constraint firstItem="v5O-oj-p1s" firstAttribute="leading" secondItem="oKD-cp-uET" secondAttribute="leadingMargin" id="JQI-Ah-aKp"/>
@@ -429,6 +457,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -440,17 +469,76 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="New Course - 1 of 2" id="eK8-K2-438">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="8VW-3Z-1Cr">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="FHi-Po-aYA" kind="unwind" unwindAction="rewindToLibrary:" id="zOz-EQ-cmL"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Next" id="vCp-8e-a4Q"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Next" id="vCp-8e-a4Q">
+                            <color key="tintColor" red="0.37192475470000003" green="0.67484642800000005" blue="0.0057978131340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="HLH-75-YSD" kind="show" id="cbO-xD-Mga"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="courseNameTextFiled" destination="yKb-pP-tYD" id="sxZ-qo-ZsZ"/>
+                        <outlet property="courseShortNameTextField" destination="tXq-v8-5Ba" id="Jse-qb-i4z"/>
+                        <outlet property="descriptionTextField" destination="K28-Xx-2Gf" id="fck-yk-cvp"/>
+                        <outlet property="nextButton" destination="vCp-8e-a4Q" id="VqO-az-n90"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HhI-US-ob1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="FHi-Po-aYA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2013.5999999999999" y="914.392803598201"/>
+        </scene>
+        <!--New Course - 2 of 2-->
+        <scene sceneID="nkq-jj-0Uz">
+            <objects>
+                <viewController id="HLH-75-YSD" customClass="CourseCreationFormViewController" customModule="Estudios" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YeY-ZU-0bQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="7Um-i1-ab0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1nY-wq-20I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="afR-yY-3gr">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="afR-yY-3gr" secondAttribute="trailing" id="0S1-LC-9du"/>
+                            <constraint firstItem="afR-yY-3gr" firstAttribute="leading" secondItem="1nY-wq-20I" secondAttribute="leading" id="7nh-pN-fMt"/>
+                            <constraint firstItem="afR-yY-3gr" firstAttribute="bottom" secondItem="7Um-i1-ab0" secondAttribute="top" id="Kdw-bh-zBn"/>
+                            <constraint firstItem="afR-yY-3gr" firstAttribute="top" secondItem="1nY-wq-20I" secondAttribute="top" constant="64" id="djG-TH-5lg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Course - 2 of 2" id="nAj-fm-ceN">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="XL2-cm-sru"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VJU-vU-meR">
+                            <color key="tintColor" red="0.41807404450000002" green="0.75858294449999997" blue="0.0065172192909999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="OUv-lh-MK8" kind="unwind" unwindAction="saveCourse:" id="GL0-Wt-H9r"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="afR-yY-3gr" id="BGn-Y5-fXd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rfa-SO-Gzb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="OUv-lh-MK8" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2952.8000000000002" y="913.49325337331345"/>
         </scene>
         <!--My Courses-->
         <scene sceneID="ehZ-rB-H9L">
@@ -458,10 +546,11 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uEx-S4-yj7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="My Courses" image="courses" id="kbx-ft-DJP"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qQa-bR-T28">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="qQa-bR-T28">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -472,7 +561,7 @@
             </objects>
             <point key="canvasLocation" x="1076" y="143"/>
         </scene>
-        <!--Account Table View Controller-->
+        <!--Account-->
         <scene sceneID="2fm-AY-Whj">
             <objects>
                 <tableViewController id="Gds-lg-FPW" customClass="AccountTableViewController" customModule="Estudios" customModuleProvider="target" sceneMemberID="viewController">
@@ -483,11 +572,11 @@
                         <sections>
                             <tableViewSection id="42Z-Xx-sbB">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="89" id="cjs-ne-cEh">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="89" id="cjs-ne-cEh">
                                         <rect key="frame" x="0.0" y="35" width="375" height="89"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cjs-ne-cEh" id="6Dw-5i-bp4">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="88"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gKH-8A-TW2">
@@ -509,14 +598,14 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmw-VP-hfc">
-                                                    <rect key="frame" x="96.5" y="18.5" width="58.5" height="29"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmw-VP-hfc">
+                                                    <rect key="frame" x="96.5" y="18.5" width="64" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEs-0V-NUv">
-                                                    <rect key="frame" x="96.5" y="49" width="42" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEs-0V-NUv">
+                                                    <rect key="frame" x="96.5" y="49" width="31.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -543,7 +632,7 @@
                                         <rect key="frame" x="0.0" y="160" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Okj-QT-hlu" id="tlG-uT-1hc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGA-ML-PFP">
@@ -570,14 +659,15 @@
                             <outlet property="delegate" destination="Gds-lg-FPW" id="WRx-Hf-Hv3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ERy-0S-2V8">
+                    <navigationItem key="navigationItem" title="Account" id="ERy-0S-2V8">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="ziH-Dy-lgu">
-                            <color key="tintColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.88053697559999999" green="0.89009073719999998" blue="0.91875202180000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="done:" destination="Gds-lg-FPW" id="MK0-li-uq4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
                         <outlet property="image" destination="gKH-8A-TW2" id="But-Ze-wsO"/>
                         <outlet property="initialsLabel" destination="hyQ-Fj-DMK" id="6Sv-8s-Jup"/>
@@ -595,7 +685,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ByW-NW-koT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OB1-DD-vyU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -614,7 +704,9 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Du7-JC-4LI" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="loq-hq-4GY">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="loq-hq-4GY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -632,9 +724,12 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o1b-7b-iDj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VH2-kC-5Ci">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="VH2-kC-5Ci">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -647,8 +742,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="LWbackground" width="1920" height="1080"/>
         <image name="courses" width="37" height="23"/>
-        <image name="logo" width="135" height="83"/>
         <image name="newCourseCover" width="217" height="271"/>
         <image name="user" width="25" height="25"/>
     </resources>
