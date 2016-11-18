@@ -13,6 +13,7 @@ class CourseTableViewCell: UITableViewCell {
     @IBOutlet weak var courseName: UILabel!
     @IBOutlet weak var instructorName: UILabel!
     @IBOutlet weak var courseImage: UIImageView!
+    @IBOutlet weak var adminImage: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

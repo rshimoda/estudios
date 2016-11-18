@@ -44,11 +44,13 @@ class DataHolder {
         for  (index, course) in courses.enumerated() {
             print("Fetching courses for user \(user!.mail)")
             print("All Courses: \(courses)")
+            
             if user!.mail == course.instructor.mail {
                 indexesArray += [index]
                 print("Found managed course \(course.name)")
                 break
             }
+            
             for student in course.students {
                 if student.mail == user!.mail {
                     indexesArray += [index]

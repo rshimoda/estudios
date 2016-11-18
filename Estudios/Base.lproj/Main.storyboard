@@ -26,7 +26,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LWbackground" translatesAutoresizingMaskIntoConstraints="NO" id="nDd-dH-MsB" customClass="SpringImageView" customModule="Estudios" customModuleProvider="target">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LWbackground" translatesAutoresizingMaskIntoConstraints="NO" id="nDd-dH-MsB" customClass="SpringImageView" customModule="Estudios" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="zoomIn"/>
@@ -157,11 +157,11 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gF9-UK-FhP">
-                                <rect key="frame" x="90" y="541" width="196" height="30"/>
+                                <rect key="frame" x="107.5" y="541" width="161" height="30"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpT-7B-gIn">
-                                        <rect key="frame" x="0.0" y="0.0" width="196" height="30"/>
-                                        <state key="normal" title="Forgot User ID or Password?">
+                                        <rect key="frame" x="0.0" y="0.0" width="161" height="30"/>
+                                        <state key="normal" title="Don't have an account?">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -183,6 +183,7 @@
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="itA-Yl-2DC">
                                 <rect key="frame" x="177" y="409" width="20" height="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gjs-Gq-Xsy" customClass="SpringImageView" customModule="Estudios" customModuleProvider="target">
                                 <rect key="frame" x="120" y="86" width="135" height="83"/>
@@ -242,7 +243,7 @@
             </objects>
             <point key="canvasLocation" x="3892" y="-613.04347826086962"/>
         </scene>
-        <!--My Courses-->
+        <!--Course Library-->
         <scene sceneID="oGa-PH-RXe">
             <objects>
                 <tableViewController id="pGw-2W-0a3" customClass="LibraryTableViewController" customModule="Estudios" customModuleProvider="target" sceneMemberID="viewController">
@@ -252,16 +253,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="courseCell" rowHeight="120" id="Lxm-mI-PTR" customClass="CourseTableViewCell" customModule="Estudios" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="courseCell" rowHeight="120" id="Lxm-mI-PTR" customClass="CourseTableViewCell" customModule="Estudios" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lxm-mI-PTR" id="zSl-Kx-vNp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newCourseCover" translatesAutoresizingMaskIntoConstraints="NO" id="4lZ-KT-mIb">
                                             <rect key="frame" x="8" y="8" width="104" height="104"/>
                                             <constraints>
+                                                <constraint firstAttribute="height" constant="104" id="5tE-oS-YHW"/>
                                                 <constraint firstAttribute="width" secondItem="4lZ-KT-mIb" secondAttribute="height" multiplier="1:1" id="o1V-nM-1Ub"/>
                                             </constraints>
                                         </imageView>
@@ -277,18 +279,28 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instructor" translatesAutoresizingMaskIntoConstraints="NO" id="qpF-WO-EOS">
+                                            <rect key="frame" x="257" y="32" width="26" height="26"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="qpF-WO-EOS" secondAttribute="height" multiplier="1:1" id="Err-oA-8si"/>
+                                                <constraint firstAttribute="width" constant="26" id="TPN-MM-rTa"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="4lZ-KT-mIb" firstAttribute="top" secondItem="zSl-Kx-vNp" secondAttribute="topMargin" id="8cU-nD-zdY"/>
                                         <constraint firstItem="kpz-az-njv" firstAttribute="centerY" secondItem="4lZ-KT-mIb" secondAttribute="centerY" multiplier="4:3" id="Bbg-VE-V7U"/>
                                         <constraint firstItem="kpz-az-njv" firstAttribute="leading" secondItem="4lZ-KT-mIb" secondAttribute="trailing" constant="8" id="Ccb-QI-2Bu"/>
                                         <constraint firstItem="4lZ-KT-mIb" firstAttribute="leading" secondItem="zSl-Kx-vNp" secondAttribute="leadingMargin" id="MjT-53-4Jb"/>
+                                        <constraint firstItem="qpF-WO-EOS" firstAttribute="leading" secondItem="Jdl-IP-O8B" secondAttribute="trailing" constant="8" id="QOH-hE-Za3"/>
                                         <constraint firstItem="Jdl-IP-O8B" firstAttribute="centerY" secondItem="4lZ-KT-mIb" secondAttribute="centerY" multiplier="3:4" id="fjA-MZ-YA0"/>
                                         <constraint firstItem="4lZ-KT-mIb" firstAttribute="bottom" secondItem="zSl-Kx-vNp" secondAttribute="bottomMargin" id="kzM-VC-q2w"/>
+                                        <constraint firstItem="qpF-WO-EOS" firstAttribute="centerY" secondItem="Jdl-IP-O8B" secondAttribute="centerY" id="lTW-MC-5Kf"/>
                                         <constraint firstItem="Jdl-IP-O8B" firstAttribute="leading" secondItem="4lZ-KT-mIb" secondAttribute="trailing" constant="8" id="xWh-hP-oo0"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="adminImage" destination="qpF-WO-EOS" id="vZN-em-IDW"/>
                                     <outlet property="courseImage" destination="4lZ-KT-mIb" id="0Nm-YT-Iuj"/>
                                     <outlet property="courseName" destination="Jdl-IP-O8B" id="r49-Zd-SYr"/>
                                     <outlet property="instructorName" destination="kpz-az-njv" id="TDz-G4-LbZ"/>
@@ -301,7 +313,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="My Courses" image="courses" id="hUV-sK-nyt"/>
-                    <navigationItem key="navigationItem" id="pth-Wk-uvR">
+                    <navigationItem key="navigationItem" title="Course Library" id="pth-Wk-uvR">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="nul-91-PHe">
                             <color key="tintColor" red="0.85176798761677486" green="0.85784120903072847" blue="0.87606087327258886" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -744,6 +756,7 @@
     <resources>
         <image name="LWbackground" width="1920" height="1080"/>
         <image name="courses" width="37" height="23"/>
+        <image name="instructor" width="27" height="24"/>
         <image name="newCourseCover" width="217" height="271"/>
         <image name="user" width="25" height="25"/>
     </resources>

@@ -8,13 +8,15 @@
 
 import UIKit
 import QuartzCore
+import ChameleonFramework
 
 protocol StartScreenDelegate {
     var delegate: StartScreenViewController? { get set }
 }
 
-class StartScreenViewController: UIViewController, UITextFieldDelegate {
+class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimationDelegate {
     
+    var gradient: CAGradientLayer?
     @IBOutlet weak var logoImage: SpringImageView!
     @IBOutlet weak var mailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -24,6 +26,9 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let userValidator = UserValidator()
+    
+    var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatTeal().cgColor, UIColor.flatOrange().cgColor] //[UIColor(red: 32.0, green: 27.0, blue: 28.0, alpha: 1.0).cgColor, UIColor(red: 199.0, green: 97.0, blue: 118.0, alpha: 1.0).cgColor] //[UIColor(red: 32.0, green: 27.0, blue: 28.0, alpha: 1.0).cgColor, UIColor(red: 34.0, green: 40.0, blue: 58.0, alpha: 1.0).cgColor, UIColor(red: 170.0, green: 53.0, blue: 3.0, alpha: 1.0).cgColor, UIColor(red: 199.0, green: 97.0, blue: 118.0, alpha: 1.0).cgColor]
+    var finalGradientColors = [UIColor.flatTeal().cgColor, UIColor.flatOrange().cgColor, UIColor.flatLime().cgColor] // [UIColor(red: 34.0, green: 40.0, blue: 58.0, alpha: 1.0).cgColor, UIColor(red: 170.0, green: 53.0, blue: 3.0, alpha: 1.0).cgColor] //[UIColor(red: 34.0, green: 40.0, blue: 58.0, alpha: 1.0).cgColor, UIColor(red: 170.0, green: 53.0, blue: 3.0, alpha: 1.0).cgColor, UIColor(red: 34.0, green: 40.0, blue: 58.0, alpha: 1.0).cgColor, UIColor(red: 199.0, green: 97.0, blue: 128.0, alpha: 1.0).cgColor]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +52,46 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate {
         let lImage = UIImage(named: "graduation")?.withRenderingMode(.alwaysTemplate)
         logoImage.image = lImage
         logoImage.alpha = 0.8
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.gradient = CAGradientLayer()
+        self.gradient!.frame = self.view.bounds
+        self.gradient!.colors = startingGradientColors
+        self.view.layer.insertSublayer(self.gradient!, at: 0)
+        
+        animateLayer()
+    }
+    
+    func animateLayer(){
+        
+        let fromColors = startingGradientColors
+        let toColors = finalGradientColors
+        
+        self.gradient!.colors = finalGradientColors
+        
+        let animation = CABasicAnimation(keyPath: "colors")
+        
+        animation.fromValue = fromColors
+        animation.toValue = toColors
+        animation.duration = 7.00
+        animation.isRemovedOnCompletion = true
+        animation.fillMode = kCAFillModeForwards
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.delegate = self
+        
+        self.gradient!.add(animation, forKey:"animateGradient")
+    }
+    
+    // CAAnimationDelegate
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if flag {
+            self.finalGradientColors = self.startingGradientColors;
+            self.startingGradientColors = self.gradient?.colors as! [CGColor]
+            
+            animateLayer()
+        }
     }
     
     // MARK: - UITextFieldDelegate

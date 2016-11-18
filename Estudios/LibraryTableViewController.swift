@@ -90,11 +90,18 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         // Configure the cell...
         cell.courseName.text = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].name
         cell.instructorName.text = "\(DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].instructor.firstName) \(DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].instructor.lastName)"
-        cell.courseImage.image = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].image
+        cell.courseImage.image = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].image ?? UIImage(named: "newCourseCover")
+        
+        if DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].instructor.mail == DataHolder.sharedInstance.user!.mail {
+            cell.adminImage.isHidden = false
+        }
 
         return cell
     }
  
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120.0
+    }
 
     /*
     // Override to support conditional editing of the table view.
