@@ -24,14 +24,20 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     @IBOutlet weak var textViewHolder: UIView!
     @IBOutlet weak var upperTextFieldHolder: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var accountCreationButton: UIButton!
     
     let userValidator = UserValidator()
     
-    var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatTeal().cgColor, UIColor.flatOrange().cgColor] //[UIColor(red: 32.0, green: 27.0, blue: 28.0, alpha: 1.0).cgColor, UIColor(red: 199.0, green: 97.0, blue: 118.0, alpha: 1.0).cgColor] //[UIColor(red: 32.0, green: 27.0, blue: 28.0, alpha: 1.0).cgColor, UIColor(red: 34.0, green: 40.0, blue: 58.0, alpha: 1.0).cgColor, UIColor(red: 170.0, green: 53.0, blue: 3.0, alpha: 1.0).cgColor, UIColor(red: 199.0, green: 97.0, blue: 118.0, alpha: 1.0).cgColor]
-    var finalGradientColors = [UIColor.flatTeal().cgColor, UIColor.flatOrange().cgColor, UIColor.flatLime().cgColor] // [UIColor(red: 34.0, green: 40.0, blue: 58.0, alpha: 1.0).cgColor, UIColor(red: 170.0, green: 53.0, blue: 3.0, alpha: 1.0).cgColor] //[UIColor(red: 34.0, green: 40.0, blue: 58.0, alpha: 1.0).cgColor, UIColor(red: 170.0, green: 53.0, blue: 3.0, alpha: 1.0).cgColor, UIColor(red: 34.0, green: 40.0, blue: 58.0, alpha: 1.0).cgColor, UIColor(red: 199.0, green: 97.0, blue: 128.0, alpha: 1.0).cgColor]
+    var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatTeal().cgColor, UIColor.flatOrange().cgColor]
+    var finalGradientColors = [UIColor.flatTeal().cgColor, UIColor.flatSkyBlueColorDark().cgColor, UIColor.flatYellowColorDark().cgColor]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setStatusBarStyle(UIStatusBarStyleContrast)
+        
+        signInButton.backgroundColor = UIColor.white.withAlphaComponent(0.0)
+        accountCreationButton.backgroundColor = UIColor.white.withAlphaComponent(0.0)
         
         mailTextField.delegate = self
         passwordTextField.delegate = self
