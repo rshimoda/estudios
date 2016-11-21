@@ -73,6 +73,7 @@ class CourseCreationFormViewController: FormViewController, CourseCreationDelega
         
         print("Adding new course \(course.name)")
         DataHolder.sharedInstance.courses += [course]
+        NetworkWorker.sharedInstance.save(new: course)
     }
  
 

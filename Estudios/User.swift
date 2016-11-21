@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class User {
+    let id: Int
+    
     let mail: String
     let password: String
     
@@ -20,7 +22,8 @@ class User {
     
     let isInstructor: Bool
     
-    init(mail: String, password: String, firstName: String, lastName: String, isInstructor: Bool) {
+    init(id: Int, mail: String, password: String, firstName: String, lastName: String, isInstructor: Bool) {
+        self.id = id
         self.mail = mail
         self.password = password
         self.firstName = firstName

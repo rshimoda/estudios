@@ -25,25 +25,12 @@ class DataHolder {
     
     var courses = [Course]()
     
-    func loadUsers() {
-        let firstUser = User(mail: "admin@mail.com", password: "123", firstName: "Johnny", lastName: "Appleseed", isInstructor: true)
-        firstUser.image = UIImage(named: "jAppleseed")
-//        do {
-//            firstUser.image = try UIImage(data: Data(contentsOf: URL(string: "http://www.iclarified.com/images/news/54246/54246/54246-1280.jpg")!))
-//        } catch {
-//            print("Failed to load image")
-//        }
-        DataHolder.sharedInstance.users["admin@mail.com"] = firstUser
-        
-        DataHolder.sharedInstance.users["user@mail.com"] = User(mail: "user@mail.com", password: "123", firstName: "System", lastName: "User", isInstructor: false)
-    }
-    
-    func fetchCourses() -> [Int] {
+    func fetchCoursesIndexesForCurrentUser() -> [Int] {
         var indexesArray = [Int]()
         
         for  (index, course) in courses.enumerated() {
             print("Fetching courses for user \(user!.mail)")
-            print("All Courses: \(courses)")
+            print("All Courses: \(courses.map({$0.name}))")
             
             if user!.mail == course.instructor.mail {
                 indexesArray += [index]
@@ -62,12 +49,21 @@ class DataHolder {
         return indexesArray
     }
     
-    func add(current user: User, to course: String) {
+    func apply(current user: User, to course: String) {
         for i in 0..<courses.count {
             if courses[i].promo == course && courses[i].instructor.mail != user.mail {
                 courses[i].students += [user]
                 return
             }
         }
+    }
+    
+    func validateCoursePromo(promo: String) -> Bool{
+        for course in courses {
+            if course.promo == promo {
+                return true
+            }
+        }
+        return false
     }
 }

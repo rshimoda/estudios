@@ -127,7 +127,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gF9-UK-FhP">
-                                <rect key="frame" x="107.5" y="541" width="161" height="30"/>
+                                <rect key="frame" x="107" y="541" width="161" height="30"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpT-7B-gIn">
                                         <rect key="frame" x="0.0" y="0.0" width="161" height="30"/>
@@ -152,7 +152,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="graduation" translatesAutoresizingMaskIntoConstraints="NO" id="gjs-Gq-Xsy" customClass="SpringImageView" customModule="Estudios" customModuleProvider="target">
-                                <rect key="frame" x="120" y="97.5" width="135" height="83"/>
+                                <rect key="frame" x="120" y="98" width="135" height="83"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
@@ -163,13 +163,29 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KkZ-8i-hS6">
                                 <rect key="frame" x="0.0" y="284" width="47" height="98"/>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ySv-r0-o6v">
+                                <rect key="frame" x="169" y="399" width="37" height="37"/>
+                                <color key="tintColor" red="0.15868747229999999" green="0.2182204425" blue="0.30320093040000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgE-xL-HxK">
+                                <rect key="frame" x="118" y="579" width="138" height="30"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Change Host Server">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeHost" destination="5Sp-iM-Al8" eventType="touchUpInside" id="NfD-fk-7wl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.15868747234344482" green="0.21822044253349304" blue="0.30320093035697937" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="bvn-gq-Zx6" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="1Wg-EQ-7gN"/>
+                            <constraint firstItem="zgE-xL-HxK" firstAttribute="top" secondItem="gF9-UK-FhP" secondAttribute="bottom" constant="8" symbolic="YES" id="6eI-V8-Bme"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="width" secondItem="jBT-yz-16y" secondAttribute="width" id="7AL-IH-aQO"/>
                             <constraint firstItem="jBT-yz-16y" firstAttribute="centerY" secondItem="OmZ-y2-Buv" secondAttribute="centerY" id="7Um-Pz-zfd"/>
                             <constraint firstAttribute="trailing" secondItem="jBT-yz-16y" secondAttribute="trailing" id="9m8-0s-Scs"/>
+                            <constraint firstItem="zgE-xL-HxK" firstAttribute="centerX" secondItem="gF9-UK-FhP" secondAttribute="centerX" id="A0c-tv-joG"/>
                             <constraint firstItem="gF9-UK-FhP" firstAttribute="centerY" secondItem="OmZ-y2-Buv" secondAttribute="centerY" multiplier="10:6" id="AAd-EG-PZc"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="leading" secondItem="OmZ-y2-Buv" secondAttribute="leading" id="EOf-14-KFN"/>
                             <constraint firstItem="bvn-gq-Zx6" firstAttribute="top" secondItem="gjs-Gq-Xsy" secondAttribute="bottom" constant="14.5" id="HMQ-Ob-ZSp"/>
@@ -178,10 +194,12 @@
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="top" secondItem="WPz-RF-hi6" secondAttribute="top" id="Old-rh-SXg"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="centerY" secondItem="OmZ-y2-Buv" secondAttribute="centerY" id="eVD-IW-c5a"/>
                             <constraint firstItem="bvn-gq-Zx6" firstAttribute="centerY" secondItem="OmZ-y2-Buv" secondAttribute="centerY" multiplier="9:14" id="f4j-SX-0eB"/>
+                            <constraint firstItem="ySv-r0-o6v" firstAttribute="centerX" secondItem="WPz-RF-hi6" secondAttribute="centerX" id="jHp-es-peG"/>
                             <constraint firstItem="bvn-gq-Zx6" firstAttribute="centerX" secondItem="WPz-RF-hi6" secondAttribute="centerX" id="rQ0-p5-rZg"/>
                             <constraint firstItem="jBT-yz-16y" firstAttribute="width" secondItem="OmZ-y2-Buv" secondAttribute="width" multiplier="1:8" id="t6f-Br-ujc"/>
                             <constraint firstItem="jBT-yz-16y" firstAttribute="height" secondItem="KkZ-8i-hS6" secondAttribute="height" id="tDC-OE-B00"/>
                             <constraint firstItem="WPz-RF-hi6" firstAttribute="leading" secondItem="KkZ-8i-hS6" secondAttribute="trailing" id="uFp-h6-zbX"/>
+                            <constraint firstItem="ySv-r0-o6v" firstAttribute="centerY" secondItem="UQ9-Lw-kdc" secondAttribute="centerY" id="unP-Su-50I"/>
                             <constraint firstItem="gF9-UK-FhP" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="w8K-id-CJm"/>
                             <constraint firstItem="gjs-Gq-Xsy" firstAttribute="centerX" secondItem="OmZ-y2-Buv" secondAttribute="centerX" id="wHJ-vI-NUi"/>
                             <constraint firstItem="KkZ-8i-hS6" firstAttribute="bottom" secondItem="WPz-RF-hi6" secondAttribute="bottom" id="ynw-TA-uV3"/>
@@ -193,6 +211,8 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="accountCreationButton" destination="xpT-7B-gIn" id="ntn-3H-YgY"/>
+                        <outlet property="activityIndicator" destination="ySv-r0-o6v" id="Go0-DO-93I"/>
+                        <outlet property="changeHostButton" destination="zgE-xL-HxK" id="XMe-x3-SC8"/>
                         <outlet property="logoImage" destination="gjs-Gq-Xsy" id="WLE-ZK-Ge6"/>
                         <outlet property="mailTextField" destination="wVN-Ia-A2B" id="Vjf-BQ-cIb"/>
                         <outlet property="passwordTextField" destination="6uf-Yt-1Y3" id="jc2-UC-N5Z"/>
@@ -210,17 +230,17 @@
         <scene sceneID="oGa-PH-RXe">
             <objects>
                 <tableViewController id="pGw-2W-0a3" customClass="LibraryTableViewController" customModule="Estudios" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8vS-hv-Sz3">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8vS-hv-Sz3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="tintColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="courseCell" rowHeight="120" id="Lxm-mI-PTR" customClass="CourseTableViewCell" customModule="Estudios" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="120"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lxm-mI-PTR" id="zSl-Kx-vNp">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="119"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newCourseCover" translatesAutoresizingMaskIntoConstraints="NO" id="4lZ-KT-mIb">
@@ -551,7 +571,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="89"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cjs-ne-cEh" id="6Dw-5i-bp4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gKH-8A-TW2">
@@ -607,7 +627,7 @@
                                         <rect key="frame" x="0.0" y="160" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Okj-QT-hlu" id="tlG-uT-1hc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGA-ML-PFP">
@@ -681,7 +701,7 @@
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="loq-hq-4GY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="loq-hq-4GY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>

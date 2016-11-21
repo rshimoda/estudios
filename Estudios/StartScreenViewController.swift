@@ -16,6 +16,8 @@ protocol StartScreenDelegate {
 
 class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimationDelegate {
     
+    // MARK: - Properties
+    
     var gradient: CAGradientLayer?
     @IBOutlet weak var logoImage: SpringImageView!
     @IBOutlet weak var mailTextField: UITextField!
@@ -23,44 +25,52 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var textViewHolder: UIView!
     @IBOutlet weak var upperTextFieldHolder: UIView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var accountCreationButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var changeHostButton: UIButton!
     
     let userValidator = UserValidator()
     
     var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatTeal().cgColor, UIColor.flatOrange().cgColor]
     var finalGradientColors = [UIColor.flatTeal().cgColor, UIColor.flatSkyBlueColorDark().cgColor, UIColor.flatYellowColorDark().cgColor]
     
+    // MARK: - View loading
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        // Set statusbar to be white
         self.setStatusBarStyle(UIStatusBarStyleContrast)
         
+        // Set transparent background for buttons
         signInButton.backgroundColor = UIColor.white.withAlphaComponent(0.0)
         accountCreationButton.backgroundColor = UIColor.white.withAlphaComponent(0.0)
+        changeHostButton.backgroundColor = UIColor.white.withAlphaComponent(0.0)
         
+        // Preparations for convenient work with keyboard
         mailTextField.delegate = self
         passwordTextField.delegate = self
-
-        // Do any additional setup after loading the view.
         self.hideKeyboardWhenTappedAround()
         
+        // Rounding and styling authorization field's borders
         textViewHolder.layer.cornerRadius = 10
         textViewHolder.layer.masksToBounds = true
         textViewHolder.layer.borderColor = UIColor.darkGray.cgColor
         textViewHolder.layer.borderWidth = 0.5
-        
         upperTextFieldHolder.layer.borderColor = UIColor.darkGray.cgColor
         upperTextFieldHolder.layer.borderWidth = 0.5
+        
+        // Fetching all users from the DB
+        NetworkWorker.sharedInstance.fetchUsersData()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        let lImage = UIImage(named: "graduation")?.withRenderingMode(.alwaysTemplate)
-        logoImage.image = lImage
-        logoImage.alpha = 0.8
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        let lImage = UIImage(named: "graduation")?.withRenderingMode(.alwaysTemplate)
+//        logoImage.image = lImage
+//        logoImage.alpha = 0.8
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
+        // Animate background gradient image
         self.gradient = CAGradientLayer()
         self.gradient!.frame = self.view.bounds
         self.gradient!.colors = startingGradientColors
@@ -89,7 +99,51 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         self.gradient!.add(animation, forKey:"animateGradient")
     }
     
-    // CAAnimationDelegate
+    //MARK: - Change Host
+    @IBAction func changeHost() {
+        signInButton.isHidden = true
+        activityIndicator.startAnimating()
+        
+        let ac = UIAlertController(title: "Select Host", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        ac.addAction(UIAlertAction(title: "0.0.0.0:8080", style: .default, handler: { (action) -> Void in
+            NetworkWorker.sharedInstance.host = "http://0.0.0.0:8080"
+        }))
+        ac.addAction(UIAlertAction(title: "10.0.1.7:8080", style: .default, handler: { (action) -> Void in
+            NetworkWorker.sharedInstance.host = "http://10.0.1.7:8080"
+        }))
+        ac.addAction(UIAlertAction(title: "estudios-server", style: .default, handler: { (action) -> Void in
+            NetworkWorker.sharedInstance.host = "https://estudios-server.herokuapp.com"
+        }))
+        ac.addAction(UIAlertAction(title: "Custom...", style: .default, handler: { (action) -> Void in
+            self.setCustomHost()
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(ac, animated: true, completion: {(action) -> Void in
+            NetworkWorker.sharedInstance.fetchUsersData()
+            self.activityIndicator.stopAnimating()
+            self.signInButton.isHidden = false
+        })
+    }
+    
+    func setCustomHost() {
+        let ac = UIAlertController(title: "Enter Host Adress", message: nil, preferredStyle: .alert)
+        ac.addTextField(configurationHandler: { (textField) -> Void in
+            textField.placeholder = "http://0.0.0.0:8080"
+            textField.keyboardType = .numbersAndPunctuation
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            NetworkWorker.sharedInstance.host = ac.textFields!.first!.text ?? ""
+        }))
+        
+        present(ac, animated: true, completion: { (action) -> Void in
+            NetworkWorker.sharedInstance.fetchUsersData()
+            self.activityIndicator.stopAnimating()
+            self.signInButton.isHidden = false
+        })
+    }
+    
+    // MARK: - CAAnimationDelegate
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
@@ -134,14 +188,22 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     
     // MARK: - Actions
     @IBAction func signIn(_ sender: UIButton) {
+        
+        signInButton.isHidden = true
+        activityIndicator.startAnimating()
+        
         if UserValidator.validateUser(with: mailTextField.text ?? "", and: passwordTextField.text ?? "") {
             DataHolder.sharedInstance.user = UserValidator.getUser(with: mailTextField.text!, and: passwordTextField.text!)
+            activityIndicator.stopAnimating()
             performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
         } else {
             let ac = UIAlertController(title: "No such user", message: "The data you've entered seems not to corespond with existing user.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Try again", style: .cancel, handler: nil))
             present(ac, animated: true, completion: nil)
         }
+        
+        activityIndicator.stopAnimating()
+        signInButton.isHidden = false
     }
     
     @IBAction func iForgot(_ sender: UIButton) {

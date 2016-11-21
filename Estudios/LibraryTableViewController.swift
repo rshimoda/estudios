@@ -18,16 +18,17 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Safe-Check whether there's an authorized user
         guard DataHolder.sharedInstance.user != nil else {
             return
         }
         
+        // Some preparations for convenient work with keyboard
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
         
-        userCoursesIndexes = DataHolder.sharedInstance.fetchCourses()
-        
-        permissionScope.addPermission(NotificationsPermission(), message: "We use this to send you\r\nspam and love notes")
+        // Refreshing table's data
+        reloadData()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -35,8 +36,12 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        // Set null footer for removing empty cells
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+
         
+        // Ask for permission to send notifications
+        permissionScope.addPermission(NotificationsPermission(), message: "We use this to send you\r\nspam and love notes")
         permissionScope.show()
     }
     
@@ -45,21 +50,12 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             performSegue(withIdentifier: "LogIn", sender: self)
             return
         }
-        
-        if !DataHolder.sharedInstance.user!.isInstructor {
-            tabBarController?.tabBar.items!.last!.isEnabled = false
-        } else {
-            tabBarController?.tabBar.items!.last!.isEnabled = true
-        }
+        NetworkWorker.sharedInstance.fetchCoursesData()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
     func reloadData() {
-        userCoursesIndexes = DataHolder.sharedInstance.fetchCourses()
+        userCoursesIndexes = DataHolder.sharedInstance.fetchCoursesIndexesForCurrentUser()
         tableView.reloadData()
     }
     
@@ -175,11 +171,15 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            DataHolder.sharedInstance.add(current: DataHolder.sharedInstance.user!, to: ac.textFields!.first!.text ?? "")
-            self.reloadData()
+            let promo = ac.textFields!.first!.text ?? ""
+            
+            if DataHolder.sharedInstance.validateCoursePromo(promo: promo) {
+                DataHolder.sharedInstance.apply(current: DataHolder.sharedInstance.user!, to: ac.textFields!.first!.text ?? "")
+                NetworkWorker.sharedInstance.apply(user: DataHolder.sharedInstance.user!.mail, to: ac.textFields!.first!.text ?? "")
+                self.reloadData()
+            }
         }))
         present(ac, animated: true, completion: nil)
-
     }
     
     
