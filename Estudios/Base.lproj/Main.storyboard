@@ -643,7 +643,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="xHv-al-dlu" kind="unwind" unwindAction="rewindToLibraryViewAndLogOut:" id="2x3-6w-B4F"/>
+                                            <segue destination="xHv-al-dlu" kind="unwind" unwindAction="unwindToStartScreenAndLogOut:" id="PHX-JE-p9r"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -668,6 +668,7 @@
                         <outlet property="initialsLabel" destination="hyQ-Fj-DMK" id="6Sv-8s-Jup"/>
                         <outlet property="mailLabel" destination="MEs-0V-NUv" id="ZJe-cP-3Xa"/>
                         <outlet property="nameLabel" destination="tmw-VP-hfc" id="94R-8g-u47"/>
+                        <segue destination="5Sp-iM-Al8" kind="show" id="UD6-Ta-NA0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ak-rs-Pn9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -744,4 +745,7 @@
         <image name="newCourseCover" width="217" height="271"/>
         <image name="user" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="UD6-Ta-NA0"/>
+    </inferredMetricsTieBreakers>
 </document>

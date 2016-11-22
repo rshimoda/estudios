@@ -26,16 +26,16 @@ class DataHolder {
     var courses = [Course]()
     
     func fetchCoursesIndexesForCurrentUser() -> [Int] {
+        print("Fetching courses for user \(user!.mail)")
+        print("All Courses: \(courses.map({$0.name}))")
+        
         var indexesArray = [Int]()
         
         for  (index, course) in courses.enumerated() {
-            print("Fetching courses for user \(user!.mail)")
-            print("All Courses: \(courses.map({$0.name}))")
-            
             if user!.mail == course.instructor.mail {
                 indexesArray += [index]
                 print("Found managed course \(course.name)")
-                break
+                continue
             }
             
             for student in course.students {

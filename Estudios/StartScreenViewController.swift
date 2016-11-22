@@ -60,14 +60,12 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         upperTextFieldHolder.layer.borderWidth = 0.5
         
         // Fetching all users from the DB
-        NetworkWorker.sharedInstance.fetchUsersData()
+//        NetworkWorker.sharedInstance.fetchUsersData() { users in
+//            for user in users {
+//                DataHolder.sharedInstance.users[user.mail] = user
+//            }
+//        }
     }
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        let lImage = UIImage(named: "graduation")?.withRenderingMode(.alwaysTemplate)
-//        logoImage.image = lImage
-//        logoImage.alpha = 0.8
-//    }
     
     override func viewDidAppear(_ animated: Bool) {
         // Animate background gradient image
@@ -118,8 +116,8 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
             self.setCustomHost()
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+       
         present(ac, animated: true, completion: {(action) -> Void in
-            NetworkWorker.sharedInstance.fetchUsersData()
             self.activityIndicator.stopAnimating()
             self.signInButton.isHidden = false
         })
@@ -137,7 +135,6 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         }))
         
         present(ac, animated: true, completion: { (action) -> Void in
-            NetworkWorker.sharedInstance.fetchUsersData()
             self.activityIndicator.stopAnimating()
             self.signInButton.isHidden = false
         })
@@ -192,25 +189,141 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         signInButton.isHidden = true
         activityIndicator.startAnimating()
         
+        NetworkWorker.sharedInstance.fetchUsersData { users in
+            for user in users {
+                DataHolder.sharedInstance.users[user.mail] = user
+            }
+            
+            print("Fetching is finished. \n Recieved Users: ")
+            debugPrint(DataHolder.sharedInstance.users)
+            
+            self.validateUserCredits()
+        }
+        
+//        print("\n\n\nFetching Users...")
+//        
+//        Alamofire.request("\(NetworkWorker.sharedInstance.host)/users").responseJSON { response in
+//
+//            print("Original URL request: \(response.request)")
+//            //print("HTTP URL response: \(response.response)")
+//            print("Server data: \(response.data)")
+//            print("Result of response serialization: \(response.result)")
+//            
+//            if let JSONResponse = response.result.value {
+//                print("JSON: \(JSONResponse)")
+//                
+//                let json = JSON(JSONResponse)
+//                var users = [User]()
+//                
+//                for (_,subJson):(String, JSON) in json {
+//                    let user = User(id: subJson["id"].int ?? 0, mail: subJson["mail"].string ?? "", password: subJson["password"].string ?? "", firstName: subJson["firstname"].string ?? "", lastName: subJson["lastname"].string ?? "", isInstructor: subJson["isinstructor"].bool ?? false)
+//                    users += [user]
+//                    DataHolder.sharedInstance.users[user.mail] = user
+//                }
+//            }
+//            print("Fetching is finished. \n Recieved Users: ")
+//            debugPrint(DataHolder.sharedInstance.users)
+//            
+//            self.validateUserCredits()
+//            
+//            self.activityIndicator.stopAnimating()
+//            self.signInButton.isHidden = false
+//        }
+    }
+    
+    func validateUserCredits() {
+        
+        print("\n\n\nValidating Entered Values...")
+        
         if UserValidator.validateUser(with: mailTextField.text ?? "", and: passwordTextField.text ?? "") {
             DataHolder.sharedInstance.user = UserValidator.getUser(with: mailTextField.text!, and: passwordTextField.text!)
-            activityIndicator.stopAnimating()
-            performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
+            
+            print("Validated.")
+            
+            // fetchCourses()
+            NetworkWorker.sharedInstance.fetchCoursesData { courses in
+                DataHolder.sharedInstance.courses.removeAll()
+
+                print("Fetching is finished. Recieved Courses: ")
+                debugPrint(DataHolder.sharedInstance.courses)
+                
+                for course in courses {
+                    DataHolder.sharedInstance.courses += [course]
+                }
+                
+                self.activityIndicator.stopAnimating()
+                self.signInButton.isHidden = false
+                
+                self.performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
+            }
         } else {
+            
+            print("Validation Failed.")
+            
             let ac = UIAlertController(title: "No such user", message: "The data you've entered seems not to corespond with existing user.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Try again", style: .cancel, handler: nil))
             present(ac, animated: true, completion: nil)
         }
-        
-        activityIndicator.stopAnimating()
-        signInButton.isHidden = false
     }
+    
+//    func fetchCourses() {
+//        
+//        print("\n\n\nFetching Courses...")
+//        
+//        DataHolder.sharedInstance.courses.removeAll()
+//
+//        Alamofire.request("\(NetworkWorker.sharedInstance.host)/courses").responseJSON { response in
+//
+//            print("Original URL request: \(response.request)")
+//            //print("HTTP URL response: \(response.response)")
+//            print("Server data: \(response.data)")
+//            print("Result of response serialization: \(response.result)")
+//            
+//            if let JSONResponse = response.result.value {
+//                
+//                let json = JSON(JSONResponse)
+//                
+//                print("JSON: ")
+//                debugPrint(json)
+//                
+//                for (_,subJson):(String, JSON) in json {
+//                    
+//                    let courseJson = subJson["course"].dictionary!
+//                    let studentsJson = subJson["students"].array!
+//                    
+//                    let course = Course(name: courseJson["name"]?.string ?? "", description: courseJson["description"]?.string ?? "", instructor: DataHolder.sharedInstance.users[(courseJson["instructor"]?.string!)!]!, promo: courseJson["promo"]?.string ?? "")
+//                    course.duration = courseJson["duration"]?.string ?? ""
+//                    course.level = courseJson["level"]?.string ?? ""
+//                    course.type = courseJson["type"]?.string ?? ""
+//                    
+//                    for studentMail in studentsJson {
+//                        if let user = DataHolder.sharedInstance.users[studentMail.string!] {
+//                            course.students += [user]
+//                        }
+//                    }
+//                    
+//                    DataHolder.sharedInstance.courses += [course]
+//                    //courses += [course]
+//                    //self.prepare(course)
+//                }
+//            }
+//            
+//            print("Fetching is finished. Recieved Courses: ")
+//            debugPrint(DataHolder.sharedInstance.courses)
+//            
+//            self.performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
+//        }
+//    }
     
     @IBAction func iForgot(_ sender: UIButton) {
         let ac = UIAlertController(title: "Password Recovery", message: "We're hard at implementing this functionality.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
         
         present(ac, animated: true, completion: nil)
+    }
+    
+    @IBAction func unwindToStartScreenAndLogOut(_ sender: UIStoryboardSegue) {
+        DataHolder.sharedInstance.user = nil
     }
 
 }

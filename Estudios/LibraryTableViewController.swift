@@ -20,6 +20,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         
         // Safe-Check whether there's an authorized user
         guard DataHolder.sharedInstance.user != nil else {
+            performSegue(withIdentifier: "LogIn", sender: self)
             return
         }
         
@@ -28,7 +29,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         self.tableView.emptyDataSetDelegate = self
         
         // Refreshing table's data
-        reloadData()
+        // reloadData()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -43,17 +44,18 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         // Ask for permission to send notifications
         permissionScope.addPermission(NotificationsPermission(), message: "We use this to send you\r\nspam and love notes")
         permissionScope.show()
+        
+        reloadData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        // Safe-Check whether there's an authorized user
         guard DataHolder.sharedInstance.user != nil else {
             performSegue(withIdentifier: "LogIn", sender: self)
             return
         }
-        NetworkWorker.sharedInstance.fetchCoursesData()
     }
 
-    
     func reloadData() {
         userCoursesIndexes = DataHolder.sharedInstance.fetchCoursesIndexesForCurrentUser()
         tableView.reloadData()
@@ -175,7 +177,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             
             if DataHolder.sharedInstance.validateCoursePromo(promo: promo) {
                 DataHolder.sharedInstance.apply(current: DataHolder.sharedInstance.user!, to: ac.textFields!.first!.text ?? "")
-                NetworkWorker.sharedInstance.apply(user: DataHolder.sharedInstance.user!.mail, to: ac.textFields!.first!.text ?? "")
+                NetworkWorker.sharedInstance.applyUser(with: DataHolder.sharedInstance.user!.mail, to: ac.textFields!.first!.text ?? "")
                 self.reloadData()
             }
         }))
@@ -191,6 +193,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     
     @IBAction func rewindToLibraryViewAndLogOut(_ sender: UIStoryboardSegue) {
         DataHolder.sharedInstance.user = nil
+        performSegue(withIdentifier: "LogIn", sender: self)
     }
     
     @IBAction func saveCourse(_ sender: UIStoryboardSegue) {
