@@ -56,8 +56,8 @@ class CourseCreationFormViewController: FormViewController, CourseCreationDelega
             <<< ActionSheetRow<String>() { row in
                 row.title = "Type"
                 row.selectorTitle = "Choose Type"
-                row.options = ["Grammatics", "Lexis", "Specialization", "Common"]
-                row.value = "Common"
+                row.options = ["Grammatics", "Lexics", "Specialization", "Common"] // NSLocalizedString("Grammatics", comment: "Grammatic Course Type")
+            row.value = "Common"
                 }.onChange {
                     self.course.type = $0.value ?? ""
         }

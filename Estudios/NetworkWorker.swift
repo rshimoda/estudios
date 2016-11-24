@@ -16,29 +16,7 @@ class NetworkWorker {
     var host = "https://estudios-server.herokuapp.com" // "172.20.10.2"
     
     func fetchUsersData(completion: @escaping (_ storedUsers: [User]) -> ()) {
-//        print("\n\n\nFetching Users...")
-//        
-//        Alamofire.request("\(host)/users").responseJSON { response in
-//            
-//            print("Original URL request: \(response.request)")
-//            //print("HTTP URL response: \(response.response)")
-//            print("Server data: \(response.data)")
-//            print("Result of response serialization: \(response.result)")
-//            
-//            if let JSONResponse = response.result.value {
-//                print("JSON: \(JSONResponse)")
-//                
-//                let json = JSON(JSONResponse)
-//                var users = [User]()
-//                
-//                for (_,subJson):(String, JSON) in json {
-//                    let user = User(id: subJson["id"].int ?? 0, mail: subJson["mail"].string ?? "", password: subJson["password"].string ?? "", firstName: subJson["firstname"].string ?? "", lastName: subJson["lastname"].string ?? "", isInstructor: subJson["isinstructor"].bool ?? false)
-//                    users += [user]
-//                    //DataHolder.sharedInstance.users[user.mail] = user
-//                }
-//                completion(users)
-//            }
-//        }
+
         print("\n\n\nFetching Users...")
         
         Alamofire.request("\(NetworkWorker.sharedInstance.host)/users").responseJSON { response in
@@ -68,34 +46,6 @@ class NetworkWorker {
     }
     
     func fetchCoursesData(completion: @escaping (_ courses: ([Course])) -> Void) {
-        
-//        print("\n\n\nFetching Courses...")
-//        DataHolder.sharedInstance.courses.removeAll()
-//        
-//        Alamofire.request("\(host)/courses").responseJSON { response in
-//            
-//            print("Original URL request: \(response.request)")
-//            //print("HTTP URL response: \(response.response)")
-//            print("Server data: \(response.data)")
-//            print("Result of response serialization: \(response.result)")
-//            
-//            if let JSONResponse = response.result.value {
-//                print("JSON: \(JSONResponse)")
-//
-//                let json = JSON(JSONResponse)
-//                
-//                for (_,subJson):(String, JSON) in json {
-//                    let course = Course(name: subJson["name"].string ?? "", description: subJson["description"].string ?? "", instructor: DataHolder.sharedInstance.users[subJson["instructor"].string!]!, promo: subJson["promo"].string ?? "")
-//                    course.duration = subJson["duration"].string ?? ""
-//                    course.level = subJson["level"].string ?? ""
-//                    course.type = subJson["type"].string ?? ""
-//                    
-//                    //DataHolder.sharedInstance.courses += [course]
-//                    //courses += [course]
-//                    completion(course)
-//                }
-//            }
-//        }
         
         print("\n\n\nFetching Courses...")
         
@@ -141,30 +91,6 @@ class NetworkWorker {
             }
         }
     }
-    
-//    func fetchStudents(for course: Course, completion: @escaping (_ storedStudents: [User]) -> Void) {
-//        print("\nFetching students in \(course.promo)...")
-//        Alamofire.request("\(self.host)/usersincourse", parameters: ["promo": course.promo]).responseJSON { response in
-//            
-//            print("Original URL request: \(response.request)")
-//            //print("HTTP URL response: \(response.response)")
-//            print("Server data: \(response.data)")
-//            print("Result of response serialization: \(response.result)")
-//            
-//            if let JSONResponse = response.result.value {
-//                print("JSON: \(JSONResponse)")
-//                
-//                let json = JSON(JSONResponse)
-//                var students = [User]()
-//                
-//                for (_,subJson):(String, JSON) in json {
-//                    let user = DataHolder.sharedInstance.users[subJson["mail"].string!]!
-//                    students += [user]
-//                }
-//                completion(students)
-//            }
-//        }
-//    }
     
     func applyUser(with mail: String, to course: String) {
         print("\n\n\nAplying \(mail) to the course \(course)...")

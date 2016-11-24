@@ -86,11 +86,20 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         let cell = tableView.dequeueReusableCell(withIdentifier: "courseCell", for: indexPath) as! CourseTableViewCell
 
         // Configure the cell...
-        cell.courseName.text = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].name
-        cell.instructorName.text = "\(DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].instructor.firstName) \(DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].instructor.lastName)"
-        cell.courseImage.image = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].image ?? UIImage(named: "newCourseCover")
         
-        if DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]].instructor.mail == DataHolder.sharedInstance.user!.mail {
+        let course = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]]
+        
+        cell.courseName.text = course.name
+        cell.instructorName.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
+        
+        if let image = course.image {
+            cell.courseImage.image = image
+        } else {
+            cell.courseImage.image = UIImage(named: "newCourseCover")
+            cell.courseTypeLabel.text = course.type
+        }
+        
+        if course.instructor.mail == DataHolder.sharedInstance.user!.mail {
             cell.adminImage.isHidden = false
         }
 

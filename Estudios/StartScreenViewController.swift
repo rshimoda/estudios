@@ -15,7 +15,7 @@ protocol StartScreenDelegate {
 }
 
 class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimationDelegate {
-    
+
     // MARK: - Properties
     
     var gradient: CAGradientLayer?
@@ -34,7 +34,8 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatTeal().cgColor, UIColor.flatOrange().cgColor]
     var finalGradientColors = [UIColor.flatTeal().cgColor, UIColor.flatSkyBlueColorDark().cgColor, UIColor.flatYellowColorDark().cgColor]
     
-    // MARK: - View loading
+    //MARK: - View Controller
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,13 +59,6 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         textViewHolder.layer.borderWidth = 0.5
         upperTextFieldHolder.layer.borderColor = UIColor.darkGray.cgColor
         upperTextFieldHolder.layer.borderWidth = 0.5
-        
-        // Fetching all users from the DB
-//        NetworkWorker.sharedInstance.fetchUsersData() { users in
-//            for user in users {
-//                DataHolder.sharedInstance.users[user.mail] = user
-//            }
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -98,6 +92,7 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     }
     
     //MARK: - Change Host
+    
     @IBAction func changeHost() {
         signInButton.isHidden = true
         activityIndicator.startAnimating()
@@ -140,7 +135,8 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         })
     }
     
-    // MARK: - CAAnimationDelegate
+    
+    //MARK: - Animation Delegate
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
@@ -151,7 +147,7 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         }
     }
     
-    // MARK: - UITextFieldDelegate
+    //MARK: - Text Field Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //Hide the keyboard
@@ -183,7 +179,8 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
 
     }
     
-    // MARK: - Actions
+    // MARK: - Authorization
+    
     @IBAction func signIn(_ sender: UIButton) {
         
         signInButton.isHidden = true
@@ -199,36 +196,6 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
             
             self.validateUserCredits()
         }
-        
-//        print("\n\n\nFetching Users...")
-//        
-//        Alamofire.request("\(NetworkWorker.sharedInstance.host)/users").responseJSON { response in
-//
-//            print("Original URL request: \(response.request)")
-//            //print("HTTP URL response: \(response.response)")
-//            print("Server data: \(response.data)")
-//            print("Result of response serialization: \(response.result)")
-//            
-//            if let JSONResponse = response.result.value {
-//                print("JSON: \(JSONResponse)")
-//                
-//                let json = JSON(JSONResponse)
-//                var users = [User]()
-//                
-//                for (_,subJson):(String, JSON) in json {
-//                    let user = User(id: subJson["id"].int ?? 0, mail: subJson["mail"].string ?? "", password: subJson["password"].string ?? "", firstName: subJson["firstname"].string ?? "", lastName: subJson["lastname"].string ?? "", isInstructor: subJson["isinstructor"].bool ?? false)
-//                    users += [user]
-//                    DataHolder.sharedInstance.users[user.mail] = user
-//                }
-//            }
-//            print("Fetching is finished. \n Recieved Users: ")
-//            debugPrint(DataHolder.sharedInstance.users)
-//            
-//            self.validateUserCredits()
-//            
-//            self.activityIndicator.stopAnimating()
-//            self.signInButton.isHidden = false
-//        }
     }
     
     func validateUserCredits() {
@@ -264,56 +231,10 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
             ac.addAction(UIAlertAction(title: "Try again", style: .cancel, handler: nil))
             present(ac, animated: true, completion: nil)
         }
+        
+        self.activityIndicator.stopAnimating()
+        self.signInButton.isHidden = false
     }
-    
-//    func fetchCourses() {
-//        
-//        print("\n\n\nFetching Courses...")
-//        
-//        DataHolder.sharedInstance.courses.removeAll()
-//
-//        Alamofire.request("\(NetworkWorker.sharedInstance.host)/courses").responseJSON { response in
-//
-//            print("Original URL request: \(response.request)")
-//            //print("HTTP URL response: \(response.response)")
-//            print("Server data: \(response.data)")
-//            print("Result of response serialization: \(response.result)")
-//            
-//            if let JSONResponse = response.result.value {
-//                
-//                let json = JSON(JSONResponse)
-//                
-//                print("JSON: ")
-//                debugPrint(json)
-//                
-//                for (_,subJson):(String, JSON) in json {
-//                    
-//                    let courseJson = subJson["course"].dictionary!
-//                    let studentsJson = subJson["students"].array!
-//                    
-//                    let course = Course(name: courseJson["name"]?.string ?? "", description: courseJson["description"]?.string ?? "", instructor: DataHolder.sharedInstance.users[(courseJson["instructor"]?.string!)!]!, promo: courseJson["promo"]?.string ?? "")
-//                    course.duration = courseJson["duration"]?.string ?? ""
-//                    course.level = courseJson["level"]?.string ?? ""
-//                    course.type = courseJson["type"]?.string ?? ""
-//                    
-//                    for studentMail in studentsJson {
-//                        if let user = DataHolder.sharedInstance.users[studentMail.string!] {
-//                            course.students += [user]
-//                        }
-//                    }
-//                    
-//                    DataHolder.sharedInstance.courses += [course]
-//                    //courses += [course]
-//                    //self.prepare(course)
-//                }
-//            }
-//            
-//            print("Fetching is finished. Recieved Courses: ")
-//            debugPrint(DataHolder.sharedInstance.courses)
-//            
-//            self.performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
-//        }
-//    }
     
     @IBAction func iForgot(_ sender: UIButton) {
         let ac = UIAlertController(title: "Password Recovery", message: "We're hard at implementing this functionality.", preferredStyle: .alert)
@@ -321,6 +242,8 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         
         present(ac, animated: true, completion: nil)
     }
+    
+    // MARK: - Unwind Segues
     
     @IBAction func unwindToStartScreenAndLogOut(_ sender: UIStoryboardSegue) {
         DataHolder.sharedInstance.user = nil

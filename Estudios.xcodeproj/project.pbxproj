@@ -41,6 +41,12 @@
 		8C7981F51DA19520008954B9 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7981F41DA19520008954B9 /* Course.swift */; };
 		8C97DAFE1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97DAFD1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift */; };
 		8C97DB001DD6415F003B5C37 /* CourseCreationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97DAFF1DD6415F003B5C37 /* CourseCreationFormViewController.swift */; };
+		8C9A21541DE6E5F200FB9EBA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9A214E1DE6E5F200FB9EBA /* Alamofire.framework */; };
+		8C9A21551DE6E5F200FB9EBA /* ChameleonFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9A214F1DE6E5F200FB9EBA /* ChameleonFramework.framework */; };
+		8C9A21561DE6E5F200FB9EBA /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9A21501DE6E5F200FB9EBA /* DZNEmptyDataSet.framework */; };
+		8C9A21571DE6E5F200FB9EBA /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9A21511DE6E5F200FB9EBA /* Eureka.framework */; };
+		8C9A21581DE6E5F200FB9EBA /* PermissionScope.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9A21521DE6E5F200FB9EBA /* PermissionScope.framework */; };
+		8C9A21591DE6E5F200FB9EBA /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9A21531DE6E5F200FB9EBA /* SwiftyJSON.framework */; };
 		8C9C83581DE1FC8900C15CF3 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9C83571DE1FC8900C15CF3 /* NetworkWorker.swift */; };
 		8CA78A2C1D95A73200365351 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA78A2B1D95A73200365351 /* AppDelegate.swift */; };
 		8CA78A311D95A73300365351 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CA78A2F1D95A73300365351 /* Main.storyboard */; };
@@ -100,6 +106,12 @@
 		8C7981F41DA19520008954B9 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		8C97DAFD1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCreationTableViewController.swift; sourceTree = "<group>"; };
 		8C97DAFF1DD6415F003B5C37 /* CourseCreationFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCreationFormViewController.swift; sourceTree = "<group>"; };
+		8C9A214E1DE6E5F200FB9EBA /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/Estudios-fcgxsnmtgvhgwhgojcnvkomopzmm/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
+		8C9A214F1DE6E5F200FB9EBA /* ChameleonFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ChameleonFramework.framework; path = "Pods/../build/Debug-iphoneos/ChameleonFramework/ChameleonFramework.framework"; sourceTree = "<group>"; };
+		8C9A21501DE6E5F200FB9EBA /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = "Pods/../build/Debug-iphoneos/DZNEmptyDataSet/DZNEmptyDataSet.framework"; sourceTree = "<group>"; };
+		8C9A21511DE6E5F200FB9EBA /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = "../../Library/Developer/Xcode/DerivedData/Estudios-fcgxsnmtgvhgwhgojcnvkomopzmm/Build/Products/Debug-iphoneos/Eureka/Eureka.framework"; sourceTree = "<group>"; };
+		8C9A21521DE6E5F200FB9EBA /* PermissionScope.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PermissionScope.framework; path = "../../Library/Developer/Xcode/DerivedData/Estudios-fcgxsnmtgvhgwhgojcnvkomopzmm/Build/Products/Debug-iphoneos/PermissionScope/PermissionScope.framework"; sourceTree = "<group>"; };
+		8C9A21531DE6E5F200FB9EBA /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/Estudios-fcgxsnmtgvhgwhgojcnvkomopzmm/Build/Products/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		8C9C83571DE1FC8900C15CF3 /* NetworkWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		8CA78A281D95A73200365351 /* Estudios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Estudios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA78A2B1D95A73200365351 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +132,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C9A21541DE6E5F200FB9EBA /* Alamofire.framework in Frameworks */,
+				8C9A21551DE6E5F200FB9EBA /* ChameleonFramework.framework in Frameworks */,
+				8C9A21561DE6E5F200FB9EBA /* DZNEmptyDataSet.framework in Frameworks */,
+				8C9A21571DE6E5F200FB9EBA /* Eureka.framework in Frameworks */,
+				8C9A21581DE6E5F200FB9EBA /* PermissionScope.framework in Frameworks */,
+				8C9A21591DE6E5F200FB9EBA /* SwiftyJSON.framework in Frameworks */,
 				B1B60D164797151765956894 /* Pods_Estudios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,6 +157,12 @@
 		64B490BEFCD60C43B8B7457A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C9A214E1DE6E5F200FB9EBA /* Alamofire.framework */,
+				8C9A214F1DE6E5F200FB9EBA /* ChameleonFramework.framework */,
+				8C9A21501DE6E5F200FB9EBA /* DZNEmptyDataSet.framework */,
+				8C9A21511DE6E5F200FB9EBA /* Eureka.framework */,
+				8C9A21521DE6E5F200FB9EBA /* PermissionScope.framework */,
+				8C9A21531DE6E5F200FB9EBA /* SwiftyJSON.framework */,
 				8C04D14A1DCFCD8400D28905 /* Alamofire.framework */,
 				8C04D14B1DCFCD8400D28905 /* ChameleonFramework.framework */,
 				8C04D14C1DCFCD8400D28905 /* DZNEmptyDataSet.framework */,
@@ -593,6 +617,8 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Spring",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/SVProgressHUD",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/SwiftyJSON",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/ChameleonFramework",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/DZNEmptyDataSet",
 				);
 				INFOPLIST_FILE = Estudios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -614,6 +640,8 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Spring",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/SVProgressHUD",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/SwiftyJSON",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/ChameleonFramework",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/DZNEmptyDataSet",
 				);
 				INFOPLIST_FILE = Estudios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

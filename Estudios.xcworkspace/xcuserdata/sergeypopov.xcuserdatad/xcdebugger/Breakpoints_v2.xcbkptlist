@@ -140,11 +140,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Estudios/LibraryTableViewController.swift"
-            timestampString = "501533697.761803"
+            timestampString = "501672607.825931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "rewindToLibraryViewAndLogOut(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -156,11 +156,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Estudios/LibraryTableViewController.swift"
-            timestampString = "501533698.565376"
+            timestampString = "501672607.825931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "rewindToLibraryViewAndLogOut(_:)"
             landmarkType = "7">
          </BreakpointContent>

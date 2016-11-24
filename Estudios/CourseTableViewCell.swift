@@ -14,6 +14,7 @@ class CourseTableViewCell: UITableViewCell {
     @IBOutlet weak var instructorName: UILabel!
     @IBOutlet weak var courseImage: UIImageView!
     @IBOutlet weak var adminImage: UIImageView!
+    @IBOutlet weak var courseTypeLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
