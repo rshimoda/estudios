@@ -10,25 +10,32 @@ import Foundation
 import UIKit
 
 class User {
-    let id: Int
     
-    let mail: String
-    let password: String
+    // MARK: - Properties
     
-    let firstName: String
-    let lastName: String
+    var id: Int
+    
+    var mail: String
+    var password: String
+    
+    var firstName: String
+    var lastName: String
     
     var image: UIImage?
     
-    let isInstructor: Bool
+    var isInstructor: Bool
     
-    init(id: Int, mail: String, password: String, firstName: String, lastName: String, isInstructor: Bool) {
-        self.id = id
-        self.mail = mail
-        self.password = password
-        self.firstName = firstName
-        self.lastName = lastName
-        self.image = nil
-        self.isInstructor = isInstructor
+    var courses = [Course]()
+    var managedCourses = [Course]()
+    
+    // MARK: - Initializer
+    
+    init() {
+        self.id = 0
+        self.mail = ""
+        self.password = ""
+        self.firstName = ""
+        self.lastName = ""
+        self.isInstructor = false
     }
 }

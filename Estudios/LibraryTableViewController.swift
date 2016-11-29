@@ -11,25 +11,18 @@ import DZNEmptyDataSet
 import PermissionScope
 
 class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-
-    var userCoursesIndexes = [Int]()
+    
     let permissionScope = PermissionScope()
+    let networkWorker = NetworkWorker()
+    
+    let user = DataHolder.sharedInstance.currentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Safe-Check whether there's an authorized user
-        guard DataHolder.sharedInstance.user != nil else {
-            performSegue(withIdentifier: "LogIn", sender: self)
-            return
-        }
-        
         // Some preparations for convenient work with keyboard
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
-        
-        // Refreshing table's data
-        // reloadData()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -47,18 +40,17 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         
         reloadData()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        // Safe-Check whether there's an authorized user
-        guard DataHolder.sharedInstance.user != nil else {
-            performSegue(withIdentifier: "LogIn", sender: self)
-            return
-        }
-    }
 
     func reloadData() {
-        userCoursesIndexes = DataHolder.sharedInstance.fetchCoursesIndexesForCurrentUser()
-        tableView.reloadData()
+        networkWorker.get(user: user.mail) { user in
+            DataHolder.sharedInstance.currentUser = user
+            
+            self.tableView.reloadData()
+        }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     // MARK: - DZEmptyDataSet
@@ -74,40 +66,82 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if user.courses.isEmpty && user.managedCourses.isEmpty {
+            return 0
+        } else if user.isInstructor {
+            return 2
+        } else {
+            return 1
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userCoursesIndexes.count
+        if user.isInstructor {
+            if section == 0 {
+                return user.managedCourses.count
+            } else {
+                return user.courses.count
+            }
+        } else {
+            return user.courses.count
+        }
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "courseCell", for: indexPath) as! CourseTableViewCell
 
         // Configure the cell...
-        
-        let course = DataHolder.sharedInstance.courses[userCoursesIndexes[indexPath.row]]
-        
-        cell.courseName.text = course.name
-        cell.instructorName.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
-        
-        if let image = course.image {
-            cell.courseImage.image = image
+        if indexPath.section == 0 && user.isInstructor {
+            let course = user.managedCourses[indexPath.row]
+            
+            cell.courseName.text = course.name
+            cell.instructorName.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
+            
+            if let image = course.image {
+                cell.courseImage.image = image
+            } else {
+                cell.courseImage.image = UIImage(named: "newCourseCover")
+                cell.courseTypeLabel.text = course.type
+            }
         } else {
-            cell.courseImage.image = UIImage(named: "newCourseCover")
-            cell.courseTypeLabel.text = course.type
+            let course = user.courses[indexPath.row]
+            
+            cell.courseName.text = course.name
+            cell.instructorName.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
+            
+            if let image = course.image {
+                cell.courseImage.image = image
+            } else {
+                cell.courseImage.image = UIImage(named: "newCourseCover")
+                cell.courseTypeLabel.text = course.type
+            }
         }
         
-        if course.instructor.mail == DataHolder.sharedInstance.user!.mail {
-            cell.adminImage.isHidden = false
-        }
-
         return cell
     }
  
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120.0
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 && user.isInstructor {
+            return "Managed Courses"
+        } else if user.isInstructor {
+            return "Other Courses"
+        } else {
+            return ""
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && user.isInstructor {
+            DataHolder.sharedInstance.currentCourse = user.managedCourses[indexPath.row]
+        } else {
+            DataHolder.sharedInstance.currentCourse = user.courses[indexPath.row]
+        }
+        
+        performSegue(withIdentifier: "Show Course", sender: self)
     }
 
     /*
@@ -145,7 +179,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -153,12 +187,12 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+ 
     
     // MARK: - Add a New Course
     
     @IBAction func addNewCourse(_ sender: UIBarButtonItem) {
-        if DataHolder.sharedInstance.user!.isInstructor {
+        if user.isInstructor {
             let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "Create a New Course", style: .default, handler: {(UIAlertAction) -> Void in
                 self.performSegue(withIdentifier: "CreateNewCourse", sender: self)
@@ -181,15 +215,14 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             textField.placeholder = "CS193p"
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            let promo = ac.textFields!.first!.text ?? ""
-            
-            if DataHolder.sharedInstance.validateCoursePromo(promo: promo) {
-                DataHolder.sharedInstance.apply(current: DataHolder.sharedInstance.user!, to: ac.textFields!.first!.text ?? "")
-                NetworkWorker.sharedInstance.applyUser(with: DataHolder.sharedInstance.user!.mail, to: ac.textFields!.first!.text ?? "")
-                self.reloadData()
+        ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            if let promo = ac.textFields!.first!.text {
+                self.networkWorker.apply(user: self.user.mail, to: promo) {
+                    self.reloadData()
+                }
             }
         }))
+        
         present(ac, animated: true, completion: nil)
     }
     
@@ -200,15 +233,14 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         
     }
     
-    @IBAction func rewindToLibraryViewAndLogOut(_ sender: UIStoryboardSegue) {
-        DataHolder.sharedInstance.user = nil
-        performSegue(withIdentifier: "LogIn", sender: self)
-    }
     
     @IBAction func saveCourse(_ sender: UIStoryboardSegue) {
-        reloadData()
+        if let vc = sender.source as? CourseCreationFormViewController {
+            networkWorker.save(course: vc.course) {
+                self.reloadData()
+            }
+        }
     }
-
 }
 
 extension UIViewController {

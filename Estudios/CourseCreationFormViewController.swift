@@ -48,16 +48,16 @@ class CourseCreationFormViewController: FormViewController, CourseCreationDelega
             <<< ActionSheetRow<String>() { row in
                 row.title = "Level"
                 row.selectorTitle = "Choose Required Level"
-                row.options = ["A1", "A2", "B1", "B2"]
-                row.value = "A2"
+                row.options = ["A1", "A2", "B1", "B2", "C1"]
+                row.value = "A1"
                 }.onChange { row in
                     self.course.level = row.value ?? ""
             }
             <<< ActionSheetRow<String>() { row in
                 row.title = "Type"
                 row.selectorTitle = "Choose Type"
-                row.options = ["Grammatics", "Lexics", "Specialization", "Common"] // NSLocalizedString("Grammatics", comment: "Grammatic Course Type")
-            row.value = "Common"
+                row.options = ["General", "Grammatics", "Lexics", "Specialization"] // NSLocalizedString("Grammatics", comment: "Grammatic Course Type")
+            row.value = "General"
                 }.onChange {
                     self.course.type = $0.value ?? ""
         }
@@ -71,9 +71,6 @@ class CourseCreationFormViewController: FormViewController, CourseCreationDelega
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        print("Adding new course \(course.name)")
-        DataHolder.sharedInstance.courses += [course]
-        NetworkWorker.sharedInstance.save(new: course)
     }
  
 

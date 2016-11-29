@@ -1,34 +1,30 @@
 //
-//  AccountTableViewController.swift
+//  OverviewMasterTableViewController.swift
 //  Estudios
 //
-//  Created by Sergey Popov on 9/24/16.
+//  Created by Sergey Popov on 11/29/16.
 //  Copyright © 2016 Sergey Popov. All rights reserved.
 //
 
 import UIKit
 
-class AccountTableViewController: UITableViewController {
+class OverviewMasterTableViewController: UITableViewController {
 
-    @IBOutlet weak var initialsLabel: UILabel!
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var mailLabel: UILabel!
+    @IBOutlet weak var courseNameLabel: UILabel!
+    @IBOutlet weak var coursePromoLabel: UILabel!
+    @IBOutlet weak var courseInstructorLabel: UILabel!
+    @IBOutlet weak var courseImage: UIImageView!
     
-    let user = DataHolder.sharedInstance.currentUser!
+    let course = DataHolder.sharedInstance.currentCourse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-            nameLabel.text = "\(user.firstName) \(user.lastName)"
-            mailLabel.text = user.mail
-            
-            if let userImage = user.image {
-                image.image = userImage
-            } else {
-                initialsLabel.text = "\(user.firstName[user.firstName.startIndex])\(user.lastName[user.lastName.startIndex])"
-            }
 
+        courseNameLabel.text = course.name
+        coursePromoLabel.text = course.promo
+        courseInstructorLabel.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
+        courseImage.image = course.image
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -36,14 +32,21 @@ class AccountTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        // #warning Incomplete implementation, return the number of sections
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        // #warning Incomplete implementation, return the number of rows
+        return 4
     }
 
     /*
@@ -100,9 +103,5 @@ class AccountTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    @IBAction func done(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
 
 }

@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 class Course {
+    
+    // MARK: - Properties
+    
     var name: String
     var description: String
     var image: UIImage?
@@ -18,21 +21,21 @@ class Course {
     var level: String
     var type: String
     
-    let promo: String
+    var promo: String
     
-    let instructor: User
-    var students = [User]()
+    var instructor: User
     
     let outline = [String]()
     
-    init(name: String, description: String, instructor: User, promo: String) {
-        self.name = name
-        self.description = description
-        self.instructor = instructor
-        self.promo = promo
+    // MARK: - Initializator
+    
+    init() {
+        self.name = ""
+        self.description = ""
         self.duration = ""
         self.level = ""
         self.type = ""
+        self.promo = ""
+        self.instructor = User()
     }
-    
 }

@@ -98,16 +98,16 @@ class CourseCreationTableViewController: UITableViewController, UITextFieldDeleg
 
     
     // MARK: - Navigation
-    // TODO: - Add Safety Checks
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if var dvc = segue.destination as? CourseCreationDelegate {
-            dvc.course = Course(name: courseNameTextFiled.text ?? "", description: descriptionTextField.text ?? "", instructor: DataHolder.sharedInstance.user!, promo: courseShortNameTextField.text ?? "")
+            dvc.course = Course()
+            dvc.course.name = courseNameTextFiled.text!
+            dvc.course.description = descriptionTextField.text!
+            dvc.course.promo = courseShortNameTextField.text!
         }
     }
- 
-
 }

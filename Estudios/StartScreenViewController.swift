@@ -29,12 +29,12 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var changeHostButton: UIButton!
     
-    let userValidator = UserValidator()
+    let networkWorker = NetworkWorker()
     
-    var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatTeal().cgColor, UIColor.flatOrange().cgColor]
+    var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatTealColorDark().cgColor, UIColor.flatOrange().cgColor]
     var finalGradientColors = [UIColor.flatTeal().cgColor, UIColor.flatSkyBlueColorDark().cgColor, UIColor.flatYellowColorDark().cgColor]
     
-    //MARK: - View Controller
+    // MARK: - View Controller
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,21 +91,25 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         self.gradient!.add(animation, forKey:"animateGradient")
     }
     
-    //MARK: - Change Host
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
+    // MARK: - Change Host
     
     @IBAction func changeHost() {
         signInButton.isHidden = true
         activityIndicator.startAnimating()
         
         let ac = UIAlertController(title: "Select Host", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        ac.addAction(UIAlertAction(title: "0.0.0.0:8080", style: .default, handler: { (action) -> Void in
-            NetworkWorker.sharedInstance.host = "http://0.0.0.0:8080"
+        ac.addAction(UIAlertAction(title: "localhost:8080", style: .default, handler: { (action) -> Void in
+            NetworkWorker.host = "http://localhost:8080"
         }))
         ac.addAction(UIAlertAction(title: "10.0.1.7:8080", style: .default, handler: { (action) -> Void in
-            NetworkWorker.sharedInstance.host = "http://10.0.1.7:8080"
+            NetworkWorker.host = "http://10.0.1.7:8080"
         }))
         ac.addAction(UIAlertAction(title: "estudios-server", style: .default, handler: { (action) -> Void in
-            NetworkWorker.sharedInstance.host = "https://estudios-server.herokuapp.com"
+            NetworkWorker.host = "https://estudios-server.herokuapp.com"
         }))
         ac.addAction(UIAlertAction(title: "Custom...", style: .default, handler: { (action) -> Void in
             self.setCustomHost()
@@ -126,7 +130,7 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            NetworkWorker.sharedInstance.host = ac.textFields!.first!.text ?? ""
+            NetworkWorker.host = ac.textFields!.first!.text ?? ""
         }))
         
         present(ac, animated: true, completion: { (action) -> Void in
@@ -135,8 +139,7 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         })
     }
     
-    
-    //MARK: - Animation Delegate
+    // MARK: - Animation Delegate
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
@@ -147,7 +150,7 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         }
     }
     
-    //MARK: - Text Field Delegate
+    // MARK: - Text Field Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //Hide the keyboard
@@ -186,55 +189,38 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         signInButton.isHidden = true
         activityIndicator.startAnimating()
         
-        NetworkWorker.sharedInstance.fetchUsersData { users in
-            for user in users {
-                DataHolder.sharedInstance.users[user.mail] = user
+        debugPrint("\n\n\nValidating Entered Values...")
+        
+        if let mail = mailTextField.text, let password = passwordTextField.text {
+            networkWorker.validate(user: mail, with: password) { wasFound in
+                if wasFound {
+                    debugPrint("Validated")
+                    
+                    self.networkWorker.get(user: mail) { user in
+                        DataHolder.sharedInstance.currentUser = user
+                        DataHolder.sharedInstance.isAuthorized = true
+                        
+                        self.activityIndicator.stopAnimating()
+                        self.signInButton.isHidden = false
+                        
+                        self.performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
+                    }
+                } else {
+                    debugPrint("Validation failed")
+                    
+                    let ac = UIAlertController(title: "Authorization Failed", message: "No such user or problems with Internet connection", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "Try again", style: .cancel, handler: nil))
+                    
+                    self.activityIndicator.stopAnimating()
+                    self.signInButton.isHidden = false
+                    
+                    self.present(ac, animated: true, completion: nil)
+                }
             }
-            
-            print("Fetching is finished. \n Recieved Users: ")
-            debugPrint(DataHolder.sharedInstance.users)
-            
-            self.validateUserCredits()
         }
     }
     
-    func validateUserCredits() {
-        
-        print("\n\n\nValidating Entered Values...")
-        
-        if UserValidator.validateUser(with: mailTextField.text ?? "", and: passwordTextField.text ?? "") {
-            DataHolder.sharedInstance.user = UserValidator.getUser(with: mailTextField.text!, and: passwordTextField.text!)
-            
-            print("Validated.")
-            
-            // fetchCourses()
-            NetworkWorker.sharedInstance.fetchCoursesData { courses in
-                DataHolder.sharedInstance.courses.removeAll()
-
-                print("Fetching is finished. Recieved Courses: ")
-                debugPrint(DataHolder.sharedInstance.courses)
-                
-                for course in courses {
-                    DataHolder.sharedInstance.courses += [course]
-                }
-                
-                self.activityIndicator.stopAnimating()
-                self.signInButton.isHidden = false
-                
-                self.performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
-            }
-        } else {
-            
-            print("Validation Failed.")
-            
-            let ac = UIAlertController(title: "No such user", message: "The data you've entered seems not to corespond with existing user.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Try again", style: .cancel, handler: nil))
-            present(ac, animated: true, completion: nil)
-        }
-        
-        self.activityIndicator.stopAnimating()
-        self.signInButton.isHidden = false
-    }
+    // MARK: - Registration
     
     @IBAction func iForgot(_ sender: UIButton) {
         let ac = UIAlertController(title: "Password Recovery", message: "We're hard at implementing this functionality.", preferredStyle: .alert)
@@ -246,7 +232,6 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     // MARK: - Unwind Segues
     
     @IBAction func unwindToStartScreenAndLogOut(_ sender: UIStoryboardSegue) {
-        DataHolder.sharedInstance.user = nil
+        DataHolder.sharedInstance.isAuthorized = false
     }
-
 }
