@@ -38,6 +38,7 @@
 		8C5533C11DD0CA57009EBC10 /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5533A41DD0CA57009EBC10 /* TransitionZoom.swift */; };
 		8C5533C21DD0CA57009EBC10 /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5533A51DD0CA57009EBC10 /* UnwindSegue.swift */; };
 		8C5562681D971D75000B296F /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5562671D971D75000B296F /* AccountTableViewController.swift */; };
+		8C5CB4F61DEE481500B46D0B /* PostsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5CB4F51DEE481500B46D0B /* PostsTableViewController.swift */; };
 		8C621C151DEE235D0050596C /* OverviewMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C621C141DEE235D0050596C /* OverviewMasterTableViewController.swift */; };
 		8C7981F51DA19520008954B9 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7981F41DA19520008954B9 /* Course.swift */; };
 		8C8C77F51DEC87FD00BD563A /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C77F41DEC87FD00BD563A /* OverviewViewController.swift */; };
@@ -104,6 +105,7 @@
 		8C5533A41DD0CA57009EBC10 /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
 		8C5533A51DD0CA57009EBC10 /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		8C5562671D971D75000B296F /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
+		8C5CB4F51DEE481500B46D0B /* PostsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsTableViewController.swift; sourceTree = "<group>"; };
 		8C621C141DEE235D0050596C /* OverviewMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewMasterTableViewController.swift; sourceTree = "<group>"; };
 		8C7981F41DA19520008954B9 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		8C8C77F41DEC87FD00BD563A /* OverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +244,14 @@
 			path = Spring;
 			sourceTree = "<group>";
 		};
+		8C5CB4F71DEE481F00B46D0B /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				8C5CB4F51DEE481500B46D0B /* PostsTableViewController.swift */,
+			);
+			name = Posts;
+			sourceTree = "<group>";
+		};
 		8C7B58DB1DCFC0E8005A6923 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +277,7 @@
 		8C8C77F61DEC882400BD563A /* Course View */ = {
 			isa = PBXGroup;
 			children = (
+				8C5CB4F71DEE481F00B46D0B /* Posts */,
 				8C8C77F71DEC883200BD563A /* Overview */,
 			);
 			name = "Course View";
@@ -500,6 +511,7 @@
 				8C5533C21DD0CA57009EBC10 /* UnwindSegue.swift in Sources */,
 				8CA78A421D95B04600365351 /* User.swift in Sources */,
 				8C5533A81DD0CA57009EBC10 /* AutoTextView.swift in Sources */,
+				8C5CB4F61DEE481500B46D0B /* PostsTableViewController.swift in Sources */,
 				8C5533B61DD0CA57009EBC10 /* Misc.swift in Sources */,
 				8C621C151DEE235D0050596C /* OverviewMasterTableViewController.swift in Sources */,
 				8CA78A3E1D95AEA600365351 /* LibraryTableViewController.swift in Sources */,

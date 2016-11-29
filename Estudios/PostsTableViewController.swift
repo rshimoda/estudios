@@ -1,32 +1,19 @@
 //
-//  OverviewMasterTableViewController.swift
+//  PostsTableViewController.swift
 //  Estudios
 //
-//  Created by Sergey Popov on 11/29/16.
+//  Created by Sergey Popov on 11/30/16.
 //  Copyright © 2016 Sergey Popov. All rights reserved.
 //
 
 import UIKit
 
-class OverviewMasterTableViewController: UITableViewController {
+class PostsTableViewController: UITableViewController {
 
-    @IBOutlet weak var courseNameLabel: UILabel!
-    @IBOutlet weak var coursePromoLabel: UILabel!
-    @IBOutlet weak var courseInstructorLabel: UILabel!
-    @IBOutlet weak var courseImage: UIImageView!
-    
-    let course = DataHolder.sharedInstance.currentCourse!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        courseNameLabel.text = course.name
-        coursePromoLabel.text = course.promo
-        courseInstructorLabel.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
-        courseImage.image = course.image ?? UIImage(named: "newCourseCover")
-        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -43,14 +30,22 @@ class OverviewMasterTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 4
-    }
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return 0
+//    }
 
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 10.0
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 1.0
+//    }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

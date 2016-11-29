@@ -124,6 +124,14 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         return 120.0
     }
     
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 10.0
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 1.0
+//    }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 && user.isInstructor {
             return "Managed Courses"
