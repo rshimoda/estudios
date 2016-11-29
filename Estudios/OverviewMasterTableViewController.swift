@@ -25,6 +25,8 @@ class OverviewMasterTableViewController: UITableViewController {
         courseInstructorLabel.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
         courseImage.image = course.image
         
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
