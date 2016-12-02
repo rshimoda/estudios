@@ -108,6 +108,7 @@ class CourseCreationTableViewController: UITableViewController, UITextFieldDeleg
             dvc.course.name = courseNameTextFiled.text!
             dvc.course.description = descriptionTextField.text!
             dvc.course.promo = courseShortNameTextField.text!
+            dvc.course.instructor = DataHolder.sharedInstance.currentUser
         }
     }
 }

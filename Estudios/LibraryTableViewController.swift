@@ -213,7 +213,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
                 self.openPromoField()
             }))
             ac.addAction(UIAlertAction(title: NSAttributedString(string: "Cancel", attributes: [NSForegroundColorAttributeName: UIColor.red]).string, style: .cancel, handler: nil))
-            // ac.view.tintColor = UIColor.darkText
+            ac.view.tintColor = UIColor.flatGreenColorDark()
             
             self.present(ac, animated: true, completion: nil)
         } else {
@@ -245,6 +245,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
                 }
             }
         }))
+        ac.view.tintColor = UIColor.flatGreenColorDark()
         
         present(ac, animated: true, completion: nil)
     }
