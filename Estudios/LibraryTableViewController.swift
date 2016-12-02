@@ -15,7 +15,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     let permissionScope = PermissionScope()
     let networkWorker = NetworkWorker()
     
-    let user = DataHolder.sharedInstance.currentUser!
+    var user = DataHolder.sharedInstance.currentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +42,13 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     }
 
     func reloadData() {
+        print("\n\n\nReloading data...")
         networkWorker.get(user: user.mail) { user in
+            print("Finished fetching user Data. Returning to Library.reloadData()")
             DataHolder.sharedInstance.currentUser = user
+            self.user = DataHolder.sharedInstance.currentUser
             
+            print("Reloading table view.")
             self.tableView.reloadData()
         }
     }
@@ -121,16 +125,8 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     }
  
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120.0
+        return 100.0
     }
-    
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 10.0
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 1.0
-//    }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 && user.isInstructor {
@@ -139,6 +135,14 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             return "Other Courses"
         } else {
             return ""
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 30.0
+        } else {
+            return 25.0
         }
     }
     
@@ -226,7 +230,18 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
             if let promo = ac.textFields!.first!.text {
                 self.networkWorker.apply(user: self.user.mail, to: promo) {
+                    print("Returning to Library.openPromoField()")
+                    
                     self.reloadData()
+//                    self.networkWorker.getCourses(for: self.user.mail) { courses in
+//                        DataHolder.sharedInstance.currentUser.courses = courses
+//                        self.user = DataHolder.sharedInstance.currentUser
+//                    
+//                        print("Updated courses list for user \(self.user.mail): ")
+//                        debugPrint(self.user.courses)
+//                        
+//                        self.tableView.reloadData()
+//                    }
                 }
             }
         }))
