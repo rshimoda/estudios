@@ -25,6 +25,7 @@ class Course {
     
     var instructor: User
     
+    var students = [User]()
     let outline = [String]()
     
     // MARK: - Initializator

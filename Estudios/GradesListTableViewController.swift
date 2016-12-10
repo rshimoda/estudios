@@ -1,33 +1,23 @@
 //
-//  AccountTableViewController.swift
+//  GradesListTableViewController.swift
 //  Estudios
 //
-//  Created by Sergey Popov on 9/24/16.
+//  Created by Sergey Popov on 12/10/16.
 //  Copyright © 2016 Sergey Popov. All rights reserved.
 //
 
 import UIKit
+import DZNEmptyDataSet
 
-class AccountTableViewController: UITableViewController {
+class GradesListTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
-    @IBOutlet weak var initialsLabel: UILabel!
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var mailLabel: UILabel!
-    
-    let user = DataHolder.sharedInstance.currentUser!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-            nameLabel.text = "\(user.firstName) \(user.lastName)"
-            mailLabel.text = user.mail
-            
-            if let userImage = user.image {
-                image.image = userImage
-            } else {
-                initialsLabel.text = "\(user.firstName[user.firstName.startIndex])\(user.lastName[user.lastName.startIndex])"
-            }
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
+        
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -36,28 +26,45 @@ class AccountTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    // MARK: - Table view data source
-/*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
-*/
     
-    /*
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // MARK: - DZEmptyDataSet
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "No Students Yet")
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "New students will apper here. ")
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
- */
-    /*
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return DataHolder.sharedInstance.currentCourse.students.count
+    }
+
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "studentCell", for: indexPath) as! GradesTableViewCell
 
         // Configure the cell...
-
+        cell.nameLabel.text = "\(DataHolder.sharedInstance.currentCourse.students[indexPath.row].firstName) \(DataHolder.sharedInstance.currentCourse.students[indexPath.row].lastName)"
+        cell.initialsLabel.text = "\(DataHolder.sharedInstance.currentCourse.students[indexPath.row].firstName.characters.first!)\(DataHolder.sharedInstance.currentCourse.students[indexPath.row].lastName.characters.first!)"
+        cell.studentImage.image = DataHolder.sharedInstance.currentCourse.students[indexPath.row].image
+        
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.
@@ -103,9 +110,5 @@ class AccountTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    @IBAction func done(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
 
 }

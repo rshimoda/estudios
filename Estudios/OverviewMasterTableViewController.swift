@@ -47,8 +47,11 @@ class OverviewMasterTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 4
+        if DataHolder.sharedInstance.currentUser.isInstructor {
+            return 5
+        } else {
+            return 4
+        }
     }
 
     /*

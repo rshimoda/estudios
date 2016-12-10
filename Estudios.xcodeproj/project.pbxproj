@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0C613E1DF169D200B83B10 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C613D1DF169D200B83B10 /* SettingsViewController.swift */; };
+		8C0C61411DF172E900B83B10 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C61401DF172E900B83B10 /* TabBarViewController.swift */; };
+		8C0C61431DF178E300B83B10 /* RegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C61421DF178E300B83B10 /* RegistrationTableViewController.swift */; };
 		8C4035721D991468000FB4CF /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4035711D991468000FB4CF /* CourseTableViewCell.swift */; };
 		8C5533A61DD0CA57009EBC10 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5533881DD0CA57009EBC10 /* AsyncButton.swift */; };
 		8C5533A71DD0CA57009EBC10 /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5533891DD0CA57009EBC10 /* AsyncImageView.swift */; };
@@ -59,6 +62,8 @@
 		8CA78A401D95AFF900365351 /* DataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA78A3F1D95AFF900365351 /* DataHolder.swift */; };
 		8CA78A421D95B04600365351 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA78A411D95B04600365351 /* User.swift */; };
 		8CA78A441D95B1D400365351 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA78A431D95B1D400365351 /* StartScreenViewController.swift */; };
+		8CAB1C3A1DFC6862003611AE /* GradesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAB1C391DFC6862003611AE /* GradesListTableViewController.swift */; };
+		8CAB1C3D1DFCAACD003611AE /* GradesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAB1C3C1DFCAACD003611AE /* GradesTableViewCell.swift */; };
 		B1B60D164797151765956894 /* Pods_Estudios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AF5A21A80404C052AA8FBB2 /* Pods_Estudios.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +78,9 @@
 		8C04D14F1DCFCD8400D28905 /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = "Pods/../build/Debug-iphoneos/Spring/Spring.framework"; sourceTree = "<group>"; };
 		8C04D1501DCFCD8400D28905 /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = "Pods/../build/Debug-iphoneos/SVProgressHUD/SVProgressHUD.framework"; sourceTree = "<group>"; };
 		8C04D1511DCFCD8400D28905 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		8C0C613D1DF169D200B83B10 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		8C0C61401DF172E900B83B10 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		8C0C61421DF178E300B83B10 /* RegistrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTableViewController.swift; sourceTree = "<group>"; };
 		8C4035711D991468000FB4CF /* CourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		8C5533881DD0CA57009EBC10 /* AsyncButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		8C5533891DD0CA57009EBC10 /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
@@ -128,6 +136,8 @@
 		8CA78A3F1D95AFF900365351 /* DataHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHolder.swift; sourceTree = "<group>"; };
 		8CA78A411D95B04600365351 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8CA78A431D95B1D400365351 /* StartScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
+		8CAB1C391DFC6862003611AE /* GradesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradesListTableViewController.swift; sourceTree = "<group>"; };
+		8CAB1C3C1DFCAACD003611AE /* GradesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradesTableViewCell.swift; sourceTree = "<group>"; };
 		A0D39204B9385B9F4DF28C01 /* Pods-Estudios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Estudios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Estudios/Pods-Estudios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +188,14 @@
 				2AF5A21A80404C052AA8FBB2 /* Pods_Estudios.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C0C61441DF178EB00B83B10 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				8C0C61421DF178E300B83B10 /* RegistrationTableViewController.swift */,
+			);
+			name = Registration;
 			sourceTree = "<group>";
 		};
 		8C54B1691DEB906500E03B1C /* Authentification */ = {
@@ -277,8 +295,11 @@
 		8C8C77F61DEC882400BD563A /* Course View */ = {
 			isa = PBXGroup;
 			children = (
-				8C5CB4F71DEE481F00B46D0B /* Posts */,
+				8C0C61401DF172E900B83B10 /* TabBarViewController.swift */,
+				8C0C613D1DF169D200B83B10 /* SettingsViewController.swift */,
 				8C8C77F71DEC883200BD563A /* Overview */,
+				8C5CB4F71DEE481F00B46D0B /* Posts */,
+				8CAB1C3B1DFC686C003611AE /* Grades */,
 			);
 			name = "Course View";
 			sourceTree = "<group>";
@@ -314,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				8CA78A2F1D95A73300365351 /* Main.storyboard */,
+				8C0C61441DF178EB00B83B10 /* Registration */,
 				8C8C77F61DEC882400BD563A /* Course View */,
 				8C54B1691DEB906500E03B1C /* Authentification */,
 				8C54B16A1DEB908400E03B1C /* Courses List */,
@@ -323,6 +345,15 @@
 				8C7B58DB1DCFC0E8005A6923 /* Assets */,
 			);
 			path = Estudios;
+			sourceTree = "<group>";
+		};
+		8CAB1C3B1DFC686C003611AE /* Grades */ = {
+			isa = PBXGroup;
+			children = (
+				8CAB1C3C1DFCAACD003611AE /* GradesTableViewCell.swift */,
+				8CAB1C391DFC6862003611AE /* GradesListTableViewController.swift */,
+			);
+			name = Grades;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -504,6 +535,8 @@
 				8C5533AB1DD0CA57009EBC10 /* DesignableImageView.swift in Sources */,
 				8C5533A61DD0CA57009EBC10 /* AsyncButton.swift in Sources */,
 				8C5533A91DD0CA57009EBC10 /* BlurView.swift in Sources */,
+				8CAB1C3A1DFC6862003611AE /* GradesListTableViewController.swift in Sources */,
+				8C0C61411DF172E900B83B10 /* TabBarViewController.swift in Sources */,
 				8C7981F51DA19520008954B9 /* Course.swift in Sources */,
 				8C4035721D991468000FB4CF /* CourseTableViewCell.swift in Sources */,
 				8C5533BE1DD0CA57009EBC10 /* SpringTextView.swift in Sources */,
@@ -517,12 +550,15 @@
 				8CA78A3E1D95AEA600365351 /* LibraryTableViewController.swift in Sources */,
 				8C5533B91DD0CA57009EBC10 /* SpringAnimation.swift in Sources */,
 				8C5533BD1DD0CA57009EBC10 /* SpringTextField.swift in Sources */,
+				8C0C61431DF178E300B83B10 /* RegistrationTableViewController.swift in Sources */,
 				8C5533AE1DD0CA57009EBC10 /* DesignableTextField.swift in Sources */,
 				8C5562681D971D75000B296F /* AccountTableViewController.swift in Sources */,
 				8C97DAFE1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift in Sources */,
 				8C5533C01DD0CA57009EBC10 /* TransitionManager.swift in Sources */,
 				8C5533AA1DD0CA57009EBC10 /* DesignableButton.swift in Sources */,
+				8CAB1C3D1DFCAACD003611AE /* GradesTableViewCell.swift in Sources */,
 				8C5533BC1DD0CA57009EBC10 /* SpringLabel.swift in Sources */,
+				8C0C613E1DF169D200B83B10 /* SettingsViewController.swift in Sources */,
 				8C5533B01DD0CA57009EBC10 /* DesignableView.swift in Sources */,
 				8CA78A401D95AFF900365351 /* DataHolder.swift in Sources */,
 				8C5533BB1DD0CA57009EBC10 /* SpringImageView.swift in Sources */,

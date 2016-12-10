@@ -16,10 +16,6 @@ protocol CourseCreationDelegate {
 class CourseCreationFormViewController: FormViewController, CourseCreationDelegate {
     
     var course: Course!
-    
-    func setCourse(newValue: Course) {
-        self.course = newValue
-    }
         
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {

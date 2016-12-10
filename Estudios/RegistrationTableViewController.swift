@@ -1,33 +1,31 @@
 //
-//  AccountTableViewController.swift
+//  RegistrationTableViewController.swift
 //  Estudios
 //
-//  Created by Sergey Popov on 9/24/16.
+//  Created by Sergey Popov on 12/2/16.
 //  Copyright © 2016 Sergey Popov. All rights reserved.
 //
 
 import UIKit
 
-class AccountTableViewController: UITableViewController {
+class RegistrationTableViewController: UITableViewController, UITextFieldDelegate {
+    @IBOutlet weak var nextBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    let networkWorker = NetworkWorker()
 
-    @IBOutlet weak var initialsLabel: UILabel!
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var mailLabel: UILabel!
-    
-    let user = DataHolder.sharedInstance.currentUser!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-            nameLabel.text = "\(user.firstName) \(user.lastName)"
-            mailLabel.text = user.mail
-            
-            if let userImage = user.image {
-                image.image = userImage
-            } else {
-                initialsLabel.text = "\(user.firstName[user.firstName.startIndex])\(user.lastName[user.lastName.startIndex])"
-            }
+        self.hideKeyboardWhenTappedAround()
+        
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -36,19 +34,29 @@ class AccountTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    // MARK: - Table view data source
-/*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-*/
     
-    /*
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        nextBarButtonItem.isEnabled = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        nextBarButtonItem.isEnabled = !(firstNameTextField.text == nil || lastNameTextField.text == nil || emailTextField.text == nil || passwordTextField.text == nil)
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
- */
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 5
+    }
+
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -104,8 +112,16 @@ class AccountTableViewController: UITableViewController {
     }
     */
     
-    @IBAction func done(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func saveUser(_ sender: UIBarButtonItem) {
+        let newUser = User()
+        newUser.mail = emailTextField.text!
+        newUser.firstName = firstNameTextField.text!
+        newUser.lastName = lastNameTextField.text!
+        newUser.password = passwordTextField.text!
+        
+        networkWorker.save(user: newUser) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
 }

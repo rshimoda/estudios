@@ -58,6 +58,7 @@ class NetworkWorker {
                 for courseJSON in coursesJSON {
                     let courseDataJSON = courseJSON["course"].dictionary!
                     let instructorDataJSON = courseJSON["instructor"].dictionary!
+                    let studentsJSON = courseJSON["students"].array!
                     
                     let course = Course()
                     
@@ -75,6 +76,18 @@ class NetworkWorker {
                     instructor.lastName = instructorDataJSON["lastname"]?.string ?? ""
                     
                     course.instructor = instructor
+                    
+                    var students = [User]()
+                    
+                    for studentJSON in studentsJSON {
+                        let student = User()
+                        student.mail = studentJSON["mail"].string ?? ""
+                        student.firstName = studentJSON["firstname"].string ?? ""
+                        student.lastName = studentJSON["lastname"].string ?? ""
+                        students.append(student)
+                    }
+                    
+                    course.students = students
                     
                     print("Adding course \(course.promo)")
                     
@@ -279,5 +292,17 @@ class NetworkWorker {
         let request = Alamofire.request("\(NetworkWorker.host)/updateCourse", method: .post, parameters: parameters, encoding: JSONEncoding.default)
         
         print("Request Status Code: \(request.response?.statusCode)")
+    }
+    
+    func fetchStudents(for course: String, completion: @escaping () -> ()) {
+        print("\n\n\nFetching students for course...")
+        
+        Alamofire.request("\(NetworkWorker.host)/students", parameters : ["promo": course]).responseJSON { response in
+            if let JSONResponse = response.result.value {
+                let json = JSON(JSONResponse)
+                
+                
+            }
+        }
     }
 }

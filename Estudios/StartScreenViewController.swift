@@ -234,4 +234,8 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     @IBAction func unwindToStartScreenAndLogOut(_ sender: UIStoryboardSegue) {
         DataHolder.sharedInstance.isAuthorized = false
     }
+    
+    @IBAction func unvindToStartScreen(sender: UIStoryboardSegue) {
+        
+    }
 }
