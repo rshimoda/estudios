@@ -238,4 +238,14 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     @IBAction func unvindToStartScreen(sender: UIStoryboardSegue) {
         
     }
+    
+    @IBAction func unvindToStartScreenAndRegister(_ sender: UIStoryboardSegue) {
+        signInButton.isHidden = true
+        activityIndicator.startAnimating()
+        
+        networkWorker.save(user: DataHolder.sharedInstance.currentUser) {
+            self.activityIndicator.stopAnimating()
+            self.signInButton.isHidden = false
+        }
+    }
 }

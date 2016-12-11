@@ -1,27 +1,24 @@
 //
-//  RegistrationTableViewController.swift
+//  RegistrationMailTableViewController.swift
 //  Estudios
 //
-//  Created by Sergey Popov on 12/2/16.
+//  Created by Sergey Popov on 12/11/16.
 //  Copyright © 2016 Sergey Popov. All rights reserved.
 //
 
 import UIKit
 
-class RegistrationTableViewController: UITableViewController, UITextFieldDelegate {
-    @IBOutlet weak var nextBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var firstNameTextField: UITextField!
-    
-    let networkWorker = NetworkWorker()
+class RegistrationMailTableViewController: UITableViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var mailTextField: UITextField!
+    @IBOutlet weak var nextButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DataHolder.sharedInstance.currentUser = User()
-        
         self.hideKeyboardWhenTappedAround()
-        
-        firstNameTextField.delegate = self
+
+        mailTextField.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -29,37 +26,34 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
     
     // MARK: - UITextFieldDelegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        nextBarButtonItem.isEnabled = false
+        nextButton.isEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if (textField.text?.isEmpty)! {
-            nextBarButtonItem.isEnabled = false
+        if textField.text?.isEmpty ?? true {
+            nextButton.isEnabled = false
         } else {
-            let firstAndLastNames = firstNameTextField.text!.components(separatedBy: " ")
+            DataHolder.sharedInstance.currentUser.mail = textField.text!
             
-            DataHolder.sharedInstance.currentUser.firstName = firstAndLastNames[0]
-            DataHolder.sharedInstance.currentUser.lastName = firstAndLastNames[1]
-            
-            nextBarButtonItem.isEnabled = true
+            nextButton.isEnabled = true
         }
     }
+
 
     // MARK: - Table view data source
 /*
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return 0
     }
 */
     /*
@@ -116,4 +110,5 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
         // Pass the selected object to the new view controller.
     }
     */
+
 }

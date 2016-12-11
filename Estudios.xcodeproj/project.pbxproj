@@ -10,6 +10,8 @@
 		8C0C613E1DF169D200B83B10 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C613D1DF169D200B83B10 /* SettingsViewController.swift */; };
 		8C0C61411DF172E900B83B10 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C61401DF172E900B83B10 /* TabBarViewController.swift */; };
 		8C0C61431DF178E300B83B10 /* RegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C61421DF178E300B83B10 /* RegistrationTableViewController.swift */; };
+		8C3B80D81DFDEA390009762F /* RegistrationMailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3B80D71DFDEA390009762F /* RegistrationMailTableViewController.swift */; };
+		8C3B80DA1DFDEC1B0009762F /* RegistrationPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3B80D91DFDEC1B0009762F /* RegistrationPasswordTableViewController.swift */; };
 		8C4035721D991468000FB4CF /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4035711D991468000FB4CF /* CourseTableViewCell.swift */; };
 		8C5533A61DD0CA57009EBC10 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5533881DD0CA57009EBC10 /* AsyncButton.swift */; };
 		8C5533A71DD0CA57009EBC10 /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5533891DD0CA57009EBC10 /* AsyncImageView.swift */; };
@@ -81,6 +83,8 @@
 		8C0C613D1DF169D200B83B10 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8C0C61401DF172E900B83B10 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8C0C61421DF178E300B83B10 /* RegistrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTableViewController.swift; sourceTree = "<group>"; };
+		8C3B80D71DFDEA390009762F /* RegistrationMailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationMailTableViewController.swift; sourceTree = "<group>"; };
+		8C3B80D91DFDEC1B0009762F /* RegistrationPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationPasswordTableViewController.swift; sourceTree = "<group>"; };
 		8C4035711D991468000FB4CF /* CourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		8C5533881DD0CA57009EBC10 /* AsyncButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		8C5533891DD0CA57009EBC10 /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 		8C0C61441DF178EB00B83B10 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				8C3B80D91DFDEC1B0009762F /* RegistrationPasswordTableViewController.swift */,
+				8C3B80D71DFDEA390009762F /* RegistrationMailTableViewController.swift */,
 				8C0C61421DF178E300B83B10 /* RegistrationTableViewController.swift */,
 			);
 			name = Registration;
@@ -544,6 +550,7 @@
 				8C5533C21DD0CA57009EBC10 /* UnwindSegue.swift in Sources */,
 				8CA78A421D95B04600365351 /* User.swift in Sources */,
 				8C5533A81DD0CA57009EBC10 /* AutoTextView.swift in Sources */,
+				8C3B80DA1DFDEC1B0009762F /* RegistrationPasswordTableViewController.swift in Sources */,
 				8C5CB4F61DEE481500B46D0B /* PostsTableViewController.swift in Sources */,
 				8C5533B61DD0CA57009EBC10 /* Misc.swift in Sources */,
 				8C621C151DEE235D0050596C /* OverviewMasterTableViewController.swift in Sources */,
@@ -551,6 +558,7 @@
 				8C5533B91DD0CA57009EBC10 /* SpringAnimation.swift in Sources */,
 				8C5533BD1DD0CA57009EBC10 /* SpringTextField.swift in Sources */,
 				8C0C61431DF178E300B83B10 /* RegistrationTableViewController.swift in Sources */,
+				8C3B80D81DFDEA390009762F /* RegistrationMailTableViewController.swift in Sources */,
 				8C5533AE1DD0CA57009EBC10 /* DesignableTextField.swift in Sources */,
 				8C5562681D971D75000B296F /* AccountTableViewController.swift in Sources */,
 				8C97DAFE1DD5C0BB003B5C37 /* CourseCreationTableViewController.swift in Sources */,
