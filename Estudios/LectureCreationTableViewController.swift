@@ -1,5 +1,5 @@
 //
-//  AllPostsTableViewController.swift
+//  LectureCreationTableViewController.swift
 //  Estudios
 //
 //  Created by Sergey Popov on 12/15/16.
@@ -7,22 +7,39 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
 
-class AllPostsTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-
-    @IBOutlet weak var addLectureButton: UIBarButtonItem!
+class LectureCreationTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var topicTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextField!
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet var pickerTopic: UIPickerView! = UIPickerView()
+    
+    var lectureName: String?
+    var lectureId: String?
+    var topicId: String?
+    var contents: String?
+    
+    var outlineDict = [String: String]()
+    var outline = DataHolder.sharedInstance.currentCourse.outline
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addLectureButton.isEnabled = DataHolder.sharedInstance.currentCourse.instructor.mail == DataHolder.sharedInstance.currentUser.mail && !DataHolder.sharedInstance.currentCourse.outline.isEmpty
+        for topic in DataHolder.sharedInstance.currentCourse.outline {
+            outlineDict[topic.name] = topic.topicId
+        }
         
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
+        topicTextField.text = outline.first?.name ?? "No Topics"
         
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-
+        
+        pickerTopic.delegate = self
+        pickerTopic.dataSource = self
+        
+        self.topicTextField.inputView = pickerTopic
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -35,41 +52,43 @@ class AllPostsTableViewController: UITableViewController, DZNEmptyDataSetSource,
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - DZEmptyDataSet
+    // MARK: - Picker view delegate & datasource
     
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "No Posts Yet")
+    @available(iOS 2.0, *)
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "If instructor adds a new Post it will appear here.\nIf you're an Instructor - just tap '+' to do it.")
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return outline.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        return outline[row].name
     }
 
     // MARK: - Table view data source
-
+    /*
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return DataHolder.sharedInstance.currentCourse.outline.count
+        // #warning Incomplete implementation, return the number of sections
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[section].name]?.count ?? 0
+        // #warning Incomplete implementation, return the number of rows
+        return 0
     }
-
-    
+    */
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LectureCell", for: indexPath) as! LectureTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         // Configure the cell...
-        guard let lecture = DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[indexPath.section].topicId]?[indexPath.row] else {
-            return cell
-        }
-        
-        cell.lectureTitle.text = lecture.title
-        cell.contents.text = lecture.contents
-        cell.dateTitle.text = lecture.date
 
         return cell
     }
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -116,7 +135,8 @@ class AllPostsTableViewController: UITableViewController, DZNEmptyDataSetSource,
     }
     */
     
-    @IBAction func revindToAllPosts(sender: UIStoryboardSegue) {
-        self.tableView.reloadData()
+    @IBAction func saveLecture(_ sender: Any) {
+        
     }
+
 }

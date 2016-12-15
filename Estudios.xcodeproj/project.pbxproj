@@ -75,6 +75,7 @@
 		8CB47CF31E0320AC00CB8409 /* AllPostsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB47CF21E0320AC00CB8409 /* AllPostsTableViewController.swift */; };
 		8CB47CF51E03213700CB8409 /* Lecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB47CF41E03213700CB8409 /* Lecture.swift */; };
 		8CB47CF71E03253F00CB8409 /* LectureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB47CF61E03253F00CB8409 /* LectureTableViewCell.swift */; };
+		8CB47EDB1E03385000CB8409 /* LectureCreationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB47EDA1E03385000CB8409 /* LectureCreationTableViewController.swift */; };
 		B1B60D164797151765956894 /* Pods_Estudios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AF5A21A80404C052AA8FBB2 /* Pods_Estudios.framework */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +161,7 @@
 		8CB47CF21E0320AC00CB8409 /* AllPostsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllPostsTableViewController.swift; sourceTree = "<group>"; };
 		8CB47CF41E03213700CB8409 /* Lecture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lecture.swift; sourceTree = "<group>"; };
 		8CB47CF61E03253F00CB8409 /* LectureTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LectureTableViewCell.swift; sourceTree = "<group>"; };
+		8CB47EDA1E03385000CB8409 /* LectureCreationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LectureCreationTableViewController.swift; sourceTree = "<group>"; };
 		A0D39204B9385B9F4DF28C01 /* Pods-Estudios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Estudios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Estudios/Pods-Estudios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -290,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB47CF21E0320AC00CB8409 /* AllPostsTableViewController.swift */,
+				8CB47EDA1E03385000CB8409 /* LectureCreationTableViewController.swift */,
 				8C5CB4F51DEE481500B46D0B /* PostsTableViewController.swift */,
 				8CB47CEE1E0311EB00CB8409 /* PostsFixedTableViewCell.swift */,
 				8CB47CF01E03123800CB8409 /* PostsOutlineTableViewCell.swift */,
@@ -599,6 +602,7 @@
 				8C5533AA1DD0CA57009EBC10 /* DesignableButton.swift in Sources */,
 				8CAB1C3D1DFCAACD003611AE /* GradesTableViewCell.swift in Sources */,
 				8C4BF9651E0204FC0097D653 /* InstructorViewController.swift in Sources */,
+				8CB47EDB1E03385000CB8409 /* LectureCreationTableViewController.swift in Sources */,
 				8C5533BC1DD0CA57009EBC10 /* SpringLabel.swift in Sources */,
 				8C4BF9631E01F77A0097D653 /* Topic.swift in Sources */,
 				8C5533B01DD0CA57009EBC10 /* DesignableView.swift in Sources */,

@@ -31,8 +31,8 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     
     let networkWorker = NetworkWorker()
     
-    var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatTealColorDark().cgColor, UIColor.flatOrange().cgColor]
-    var finalGradientColors = [UIColor.flatTeal().cgColor, UIColor.flatSkyBlueColorDark().cgColor, UIColor.flatYellowColorDark().cgColor]
+    var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatNavyBlue().cgColor, UIColor.flatTealColorDark().cgColor, UIColor.flatOrange().cgColor]
+    var finalGradientColors = [UIColor.flatTealColorDark().cgColor, UIColor.flatNavyBlue().cgColor, UIColor.flatOrange().cgColor, UIColor.flatOrangeColorDark().cgColor]
     
     // MARK: - View Controller
 
