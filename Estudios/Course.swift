@@ -26,7 +26,8 @@ class Course {
     var instructor: User
     
     var students = [User]()
-    let outline = [String]()
+    var outline = [Topic]()
+    var posts = [String: [Lecture]]()
     
     // MARK: - Initializator
     

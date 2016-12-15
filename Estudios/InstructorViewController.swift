@@ -1,31 +1,30 @@
 //
-//  TabBarViewController.swift
+//  InstructorViewController.swift
 //  Estudios
 //
-//  Created by Sergey Popov on 12/2/16.
+//  Created by Sergey Popov on 12/15/16.
 //  Copyright © 2016 Sergey Popov. All rights reserved.
 //
 
 import UIKit
 
-class TabBarViewController: UITabBarController {
-    
-    let networkWorker = NetworkWorker()
+class InstructorViewController: UIViewController {
 
-    @IBOutlet weak var settingsButton: UIBarButtonItem!
+    @IBOutlet weak var instructorImage: UIImageView!
+    @IBOutlet weak var instractorName: UILabel!
+    @IBOutlet weak var InstructorMail: UILabel!
+    @IBOutlet weak var aboutInstructor: UITextView!
+    @IBOutlet weak var instructorInitials: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        let isInstructorOfCurrentCourse = DataHolder.sharedInstance.currentCourse.instructor.mail == DataHolder.sharedInstance.currentUser.mail
-        
-        settingsButton.isEnabled = !isInstructorOfCurrentCourse
-        
-        if !isInstructorOfCurrentCourse {
-            self.viewControllers?.removeLast()
-        }
+        let instructor = DataHolder.sharedInstance.currentCourse.instructor
+        instructorImage.image = instructor.image
+        instructorInitials.text = "\(instructor.firstName.characters.first!)\(instructor.lastName.characters.first!)"
+        instractorName.text = "\(instructor.firstName) \(instructor.lastName)"
+        InstructorMail.text = instructor.mail
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,8 +42,5 @@ class TabBarViewController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    @IBAction func revindToTabBar(sender: UIStoryboardSegue) {
-    
-    }
+
 }

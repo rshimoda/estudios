@@ -1,34 +1,22 @@
 //
-//  OverviewMasterTableViewController.swift
+//  AllPostsTableViewController.swift
 //  Estudios
 //
-//  Created by Sergey Popov on 11/29/16.
+//  Created by Sergey Popov on 12/15/16.
 //  Copyright © 2016 Sergey Popov. All rights reserved.
 //
 
 import UIKit
 
-class OverviewMasterTableViewController: UITableViewController {
+class AllPostsTableViewController: UITableViewController {
 
-    @IBOutlet weak var courseNameLabel: UILabel!
-    @IBOutlet weak var coursePromoLabel: UILabel!
-    @IBOutlet weak var courseInstructorLabel: UILabel!
-    @IBOutlet weak var courseImage: UIImageView!
-    
-    let course = DataHolder.sharedInstance.currentCourse!
+    @IBOutlet weak var addLectureButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addLectureButton.isEnabled = DataHolder.sharedInstance.currentCourse.instructor.mail == DataHolder.sharedInstance.currentUser.mail
 
-        courseNameLabel.text = course.name
-        coursePromoLabel.text = course.promo
-        courseInstructorLabel.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
-        courseImage.image = course.image ?? UIImage(named: "newCourseCover")
-        
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -44,27 +32,28 @@ class OverviewMasterTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return DataHolder.sharedInstance.currentCourse.outline.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if DataHolder.sharedInstance.currentUser.mail == DataHolder.sharedInstance.currentCourse.instructor.mail {
-            return 5
-        } else {
-            return 4
-        }
+        return DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[section].name]?.count ?? 0
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LectureCell", for: indexPath) as! LectureTableViewCell
 
         // Configure the cell...
+        guard let lecture = DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[indexPath.section].topicId]?[indexPath.row] else {
+            return cell
+        }
+        
+        cell.lectureTitle.text = lecture.title
+        cell.contents.text = lecture.contents
+        cell.dateTitle.text = lecture.date
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -101,26 +90,14 @@ class OverviewMasterTableViewController: UITableViewController {
     }
     */
 
-/*
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "Show Info":
-                let detailViewController = self.storyboard?.instantiateViewController(withIdentifier: "InfoViewController") as! UINavigationController
-                self.splitViewController?.viewControllers[1] = detailViewController
-            default:
-                break
-            }
-        }
     }
- */
-    @IBAction func revindToCourseOverview(sender: UIStoryboardSegue) {
-        
-    }
+    */
 
 }

@@ -153,6 +153,10 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             DataHolder.sharedInstance.currentCourse = user.courses[indexPath.row]
         }
         
+        networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { topics in
+            DataHolder.sharedInstance.currentCourse.outline = topics
+        }
+        
         performSegue(withIdentifier: "Show Course", sender: self)
     }
 
@@ -233,15 +237,6 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
                     print("Returning to Library.openPromoField()")
                     
                     self.reloadData()
-//                    self.networkWorker.getCourses(for: self.user.mail) { courses in
-//                        DataHolder.sharedInstance.currentUser.courses = courses
-//                        self.user = DataHolder.sharedInstance.currentUser
-//                    
-//                        print("Updated courses list for user \(self.user.mail): ")
-//                        debugPrint(self.user.courses)
-//                        
-//                        self.tableView.reloadData()
-//                    }
                 }
             }
         }))
@@ -262,6 +257,16 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         if let vc = sender.source as? CourseCreationFormViewController {
             networkWorker.save(course: vc.course) {
                 self.reloadData()
+            }
+        }
+    }
+    
+    @IBAction func revindToLibraryAndUnroll(_ sender: UIStoryboardSegue) {
+        networkWorker.unroll(user: DataHolder.sharedInstance.currentUser, from: DataHolder.sharedInstance.currentCourse.promo) {
+            self.networkWorker.get(user: DataHolder.sharedInstance.currentUser.mail) { user in
+                DataHolder.sharedInstance.currentUser = user
+                self.user = user
+                self.tableView.reloadData()
             }
         }
     }

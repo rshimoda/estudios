@@ -69,6 +69,21 @@ class NetworkWorker {
                     course.level = courseDataJSON["level"]?.string ?? ""
                     course.type = courseDataJSON["type"]?.string ?? ""
                     
+                    Alamofire.request("https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=\(course.name)").responseJSON { response in
+                        if let JSONResponse = response.result.value {
+                            let json = JSON(JSONResponse)
+                            
+                            let resultsJSON = json["results"].array
+                            let imageURL = resultsJSON?[0].dictionary?["unescapedUrl"]?.string
+                            
+                            do {
+                                course.image = UIImage(data: try Data(contentsOf: URL(fileURLWithPath: imageURL ?? "")))
+                            } catch {
+                                print("Failed to load image to course")
+                            }
+                        }
+                    }
+                    
                     let instructor = User()
                     
                     instructor.mail = instructorDataJSON["mail"]?.string ?? ""
@@ -96,19 +111,43 @@ class NetworkWorker {
                 }
                 
                 for managedCourseJSON in managedCoursesJSON {
-                    let managedCourse = Course()
+                    let courseDataJSON = managedCourseJSON["course"].dictionary!
+                    let instructorDataJSON = managedCourseJSON["instructor"].dictionary!
+                    let studentsJSON = managedCourseJSON["students"].array!
                     
-                    managedCourse.promo = managedCourseJSON["promo"].string ?? ""
-                    managedCourse.name = managedCourseJSON["name"].string ?? ""
-                    managedCourse.description = managedCourseJSON["description"].string ?? ""
-                    managedCourse.duration = managedCourseJSON["duration"].string ?? ""
-                    managedCourse.level = managedCourseJSON["level"].string ?? ""
-                    managedCourse.type = managedCourseJSON["type"].string ?? ""
-                    managedCourse.instructor = user
+                    let course = Course()
                     
-                    print("Adding managed course \(managedCourse.promo)")
+                    course.promo = courseDataJSON["promo"]?.string ?? ""
+                    course.name = courseDataJSON["name"]?.string ?? ""
+                    course.description = courseDataJSON["description"]?.string ?? ""
+                    course.duration = courseDataJSON["duration"]?.string ?? ""
+                    course.level = courseDataJSON["level"]?.string ?? ""
+                    course.type = courseDataJSON["type"]?.string ?? ""
                     
-                    user.managedCourses += [managedCourse]
+                    let instructor = User()
+                    
+                    instructor.mail = instructorDataJSON["mail"]?.string ?? ""
+                    instructor.firstName = instructorDataJSON["firstname"]?.string ?? ""
+                    instructor.lastName = instructorDataJSON["lastname"]?.string ?? ""
+                    
+                    course.instructor = instructor
+                    
+                    var students = [User]()
+                    
+                    for studentJSON in studentsJSON {
+                        let student = User()
+                        student.mail = studentJSON["mail"].string ?? ""
+                        student.firstName = studentJSON["firstname"].string ?? ""
+                        student.lastName = studentJSON["lastname"].string ?? ""
+                        students.append(student)
+                    }
+                    
+                    course.students = students
+
+                    
+                    print("Adding managed course \(course.promo)")
+                    
+                    user.managedCourses += [course]
                 }
                 
                 print("Done. Running completion closure...")
@@ -119,6 +158,7 @@ class NetworkWorker {
     
     func get(instructor mail: String, completion: @escaping (_ user: User) -> ()) {
         print("\n\n\nFetching instructor \(mail) data...")
+        
         Alamofire.request("\(NetworkWorker.host)/instructor", parameters: ["mail": mail]).responseJSON { response in
             if let responseJSON = response.result.value {
                 let json = JSON(responseJSON)
@@ -141,52 +181,24 @@ class NetworkWorker {
         }
     }
     
-    
-    /*
-    func getCourses(for user: String, completion: @escaping (_ courses: [Course]) -> ()) {
-        print("\n\n\nFetching coursesfor user \(user)...")
-        Alamofire.request("\(NetworkWorker.host)/courses", parameters: ["mail": user]).responseJSON { response in
-            if let responseJSON = response.result.value {
-                let json = JSON(responseJSON).array!
-                
-                print("JSON: ")
-                debugPrint(json)
-                
-                var courses = [Course]()
-                
-                for courseJSON in json {
-                    let courseDataJSON = courseJSON["course"].dictionary!
-                    let instructorDataJSON = courseJSON["instructor"].dictionary!
-                    
-                    let course = Course()
-                    
-                    course.promo = courseDataJSON["promo"]?.string ?? ""
-                    course.name = courseDataJSON["name"]?.string ?? ""
-                    course.description = courseDataJSON["description"]?.string ?? ""
-                    course.duration = courseDataJSON["duration"]?.string ?? ""
-                    course.level = courseDataJSON["level"]?.string ?? ""
-                    course.type = courseDataJSON["type"]?.string ?? ""
-                    
-                    let instructor = User()
-                    
-                    instructor.mail = instructorDataJSON["mail"]?.string ?? ""
-                    instructor.firstName = instructorDataJSON["firstname"]?.string ?? ""
-                    instructor.lastName = instructorDataJSON["lastname"]?.string ?? ""
-                    
-                    course.instructor = instructor
-                    
-                    print("Adding course \(course.promo)")
-                    
-                    courses += [course]
-                    
-                }
-                completion(courses)
-            }
-        }
+    func save(user: User, completion: @escaping () -> ()) {
+        print("\n\n\nSaving new user \(user.mail)...")
+        
+        let parameters: [String : Any] = [
+            "mail": user.mail,
+            "password": user.password,
+            "firstname": user.firstName,
+            "lastname": user.lastName,
+            "isinstructor": user.isInstructor
+        ]
+        let request = Alamofire.request("\(NetworkWorker.host)/new-user", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        
+        print("Request Status Code: \(request.response?.statusCode)")
+        
+        print("Done. Running completion closure...")
+        completion()
     }
- */
- 
- 
+    
     func apply(user mail: String, to course: String, completion: @escaping () -> ()) {
         print("\n\n\nAplying \(mail) to the course \(course)...")
         
@@ -204,21 +216,18 @@ class NetworkWorker {
         completion()
     }
     
-    func save(user: User, completion: @escaping () -> ()) {
-        print("\n\n\nSaving new user \(user.mail)...")
+    func unroll(user: User, from course: String, completion: @escaping () -> ()) {
+        print("\n\n\nUnrolling \(user.mail) from \(course)")
         
-        let parameters: [String : Any] = [
+        let parameters = [
             "mail": user.mail,
-            "password": user.password,
-            "firstname": user.firstName,
-            "lastname": user.lastName,
-            "isinstructor": user.isInstructor
+            "promo": course
         ]
-        let request = Alamofire.request("\(NetworkWorker.host)/newUser", method: .post, parameters: parameters, encoding: JSONEncoding.default)
         
-        print("Request Status Code: \(request.response?.statusCode)")
+        Alamofire.request("\(NetworkWorker.host)/unroll", parameters: parameters).responseJSON { response in
+            print(response.result.description)
+        }
         
-        print("Done. Running completion closure...")
         completion()
     }
     
@@ -267,7 +276,7 @@ class NetworkWorker {
             "type": course.type
         ]
         
-        let request = Alamofire.request("\(NetworkWorker.host)/newCourse", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        let request = Alamofire.request("\(NetworkWorker.host)/new-course", method: .post, parameters: parameters, encoding: JSONEncoding.default)
 
         print("Request Status Code: \(request.response?.statusCode)")
         
@@ -289,20 +298,64 @@ class NetworkWorker {
             "type": course.type
         ]
         
-        let request = Alamofire.request("\(NetworkWorker.host)/updateCourse", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        let request = Alamofire.request("\(NetworkWorker.host)/update-course", method: .post, parameters: parameters, encoding: JSONEncoding.default)
         
         print("Request Status Code: \(request.response?.statusCode)")
     }
     
-    func fetchStudents(for course: String, completion: @escaping () -> ()) {
-        print("\n\n\nFetching students for course...")
+
+    // MARK: - Topics
+    
+    func fetchTopics(for course: String, completion: @escaping ([Topic]) -> ()) {
+        print("\n\n\nFetching \(course) Outline...")
         
-        Alamofire.request("\(NetworkWorker.host)/students", parameters : ["promo": course]).responseJSON { response in
+        Alamofire.request("\(NetworkWorker.host)/topics", parameters: ["promo": course]).responseJSON { response in
             if let JSONResponse = response.result.value {
                 let json = JSON(JSONResponse)
                 
+                var topics = [Topic]()
                 
+                for topicJSON in json {
+                    let topic = Topic(promo: topicJSON.1["promo"].string ?? "", topicId: topicJSON.1["topicid"].string ?? "", name: topicJSON.1["name"].string ?? "")
+                    topics.append(topic)
+                    
+                    print("Adding a new topic \(topic.name)")
+                }
+                
+                completion(topics)
             }
         }
     }
+    
+    func save(topic: Topic, completion: @escaping () -> ()) {
+        print("\n\n\nSaving new topic \(topic.name)...")
+        
+        let parameters = [
+            "topicid": topic.topicId,
+            "name": topic.name,
+            "promo": topic.promo
+        ]
+        
+        let request = Alamofire.request("\(NetworkWorker.host)/newTopic", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        
+        print("Request Status Code: \(request.response?.statusCode)")
+        
+        completion()
+    }
+    
+    func delete(topic: Topic, completion: @escaping () -> ()) {
+        print("\n\n\nDeleting topic \(topic.name)")
+        
+        let parameters = [
+            "topicid": topic.topicId,
+            "name": topic.name
+        ]
+        
+        Alamofire.request("\(NetworkWorker.host)/delete-topic", parameters: parameters).responseJSON { response in
+            print(response.result.description)
+        }
+        
+        completion()
+    }
+
 }
