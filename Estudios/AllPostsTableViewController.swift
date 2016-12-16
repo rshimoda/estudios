@@ -13,8 +13,12 @@ class AllPostsTableViewController: UITableViewController, DZNEmptyDataSetSource,
 
     @IBOutlet weak var addLectureButton: UIBarButtonItem!
     
+    let networkWorker = NetworkWorker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.reloadData()
         
         addLectureButton.isEnabled = DataHolder.sharedInstance.currentCourse.instructor.mail == DataHolder.sharedInstance.currentUser.mail && !DataHolder.sharedInstance.currentCourse.outline.isEmpty
         
@@ -47,14 +51,29 @@ class AllPostsTableViewController: UITableViewController, DZNEmptyDataSetSource,
 
     // MARK: - Table view data source
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200.0
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 30.0
+        } else {
+            return 25.0
+        }
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return DataHolder.sharedInstance.currentCourse.outline.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[section].name]?.count ?? 0
+        return DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[section].topicId]?.count ?? 0
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return DataHolder.sharedInstance.currentCourse.outline[section].name
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LectureCell", for: indexPath) as! LectureTableViewCell
@@ -71,25 +90,42 @@ class AllPostsTableViewController: UITableViewController, DZNEmptyDataSetSource,
         return cell
     }
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        if DataHolder.sharedInstance.currentCourse.instructor.mail == DataHolder.sharedInstance.currentUser.mail {
+            return true
+        } else {
+            return false
+        }
     }
-    */
-
-    /*
+ 
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            if let lecture = DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[indexPath.section].topicId]?[indexPath.row] {
+                self.networkWorker.delete(lecture: lecture) {
+                    self.networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { topics in
+                        DataHolder.sharedInstance.currentCourse.outline = topics
+                        for topic in topics {
+                            self.networkWorker.fetchLectures(for: topic) { lectures in
+                                DataHolder.sharedInstance.currentCourse.posts[topic.topicId] = lectures
+                            }
+                        }
+                        self.tableView.reloadData()
+                    }
+
+                }
+            }
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.

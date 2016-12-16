@@ -336,7 +336,7 @@ class NetworkWorker {
             "promo": topic.promo
         ]
         
-        let request = Alamofire.request("\(NetworkWorker.host)/newTopic", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        let request = Alamofire.request("\(NetworkWorker.host)/new-topic", method: .post, parameters: parameters, encoding: JSONEncoding.default)
         
         print("Request Status Code: \(request.response?.statusCode)")
         
@@ -352,6 +352,69 @@ class NetworkWorker {
         ]
         
         Alamofire.request("\(NetworkWorker.host)/delete-topic", parameters: parameters).responseJSON { response in
+            print(response.result.description)
+        }
+        
+        completion()
+    }
+    
+    // MARK: - Lecture
+    
+    func fetchLectures(for topic: Topic, completion: @escaping ([Lecture]) -> ()) {
+        print("\n\n\nFetching \(topic.name) lectures...")
+        
+        Alamofire.request("\(NetworkWorker.host)/lectures", parameters: ["topicid": topic.topicId]).responseJSON { response in
+            if let JSONResponse = response.result.value {
+                let json = JSON(JSONResponse)
+                
+                print("Recieved data: ")
+                print(json)
+                
+                var lectures = [Lecture]()
+                
+                for topicJSON in json {
+                    let lecture = Lecture(title: topicJSON.1["name"].string ?? "", contents: topicJSON.1["contents"].string ?? "", date: topicJSON.1["date"].string ?? "", topicId: topicJSON.1["topicid"].string ?? "", lectureId: topicJSON.1["lectureid"].string ?? "")
+                    lectures.append(lecture)
+                    
+                    print("Adding a new lecture \(lecture.title)")
+                }
+                
+                completion(lectures)
+            }
+        }
+
+    }
+    
+    func save(lecture: Lecture, completion: @escaping () -> ()) {
+        print("\n\n\nSaving new lecture \(lecture.title)...")
+        
+        let parameters = [
+            "topicid": lecture.topicId,
+            "lectureid": lecture.lectureId,
+            "name": lecture.title,
+            "contents": lecture.contents,
+            "date": lecture.date
+        ]
+        
+        let request = Alamofire.request("\(NetworkWorker.host)/new-lecture", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        
+        print("Request Status Code: \(request.response?.statusCode)")
+        
+        completion()
+    }
+    
+    func delete(lecture: Lecture, completion: @escaping () -> ()) {
+        print("\n\n\nDeleting lecture \(lecture.title)")
+        
+        let parameters = [
+            "topicid": lecture.topicId,
+            "lectureid": lecture.lectureId,
+            "name": lecture.title,
+            "contents": lecture.contents,
+            "date": lecture.date
+        ]
+        
+        Alamofire.request("\(NetworkWorker.host)/delete-lecture", parameters: parameters).responseJSON { response in
             print(response.result.description)
         }
         

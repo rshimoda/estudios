@@ -10,17 +10,14 @@ import UIKit
 
 class LectureCreationTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    let networkWorker = NetworkWorker()
+    
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var topicTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet var pickerTopic: UIPickerView! = UIPickerView()
-    
-    var lectureName: String?
-    var lectureId: String?
-    var topicId: String?
-    var contents: String?
     
     var outlineDict = [String: String]()
     var outline = DataHolder.sharedInstance.currentCourse.outline
@@ -66,6 +63,10 @@ class LectureCreationTableViewController: UITableViewController, UIPickerViewDat
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
         return outline[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        topicTextField.text = outline[row].name
     }
 
     // MARK: - Table view data source
@@ -136,6 +137,18 @@ class LectureCreationTableViewController: UITableViewController, UIPickerViewDat
     */
     
     @IBAction func saveLecture(_ sender: Any) {
+        let lecture = Lecture(title: name.text ?? "", contents: descriptionTextField.text ?? "", date: "\(Date())", topicId: outlineDict[topicTextField.text!]!, lectureId: "\(outlineDict[topicTextField.text!]!)-\(DataHolder.sharedInstance.currentCourse.posts[outlineDict[topicTextField.text!]!]?.count)")
+        networkWorker.save(lecture: lecture) {
+            self.networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { topics in
+                DataHolder.sharedInstance.currentCourse.outline = topics
+                for topic in topics {
+                    self.networkWorker.fetchLectures(for: topic) { lectures in
+                        DataHolder.sharedInstance.currentCourse.posts[topic.topicId] = lectures
+                    }
+                }
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
         
     }
 

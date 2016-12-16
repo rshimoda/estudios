@@ -10,6 +10,8 @@ import UIKit
 
 class PostsTableViewController: UITableViewController {
     
+    let networkWorker = NetworkWorker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,9 +58,9 @@ class PostsTableViewController: UITableViewController {
             if indexPath.row == 0 {
                 cell.icon.image = UIImage(named: "posts")
                 cell.title.text = "All Posts"
-                cell.counterLabel.text = "0" // DataHolder.sharedInstance.currentCourse.
+                cell.counterLabel.text = "\(DataHolder.sharedInstance.currentCourse.posts.values.count)"
             } else {
-                cell.icon.image = UIImage(named: "assignments")
+                cell.icon.image = UIImage(named: "tasks")
                 cell.title.text = "Assignments"
                 cell.counterLabel.text = "0"
             }
@@ -67,7 +69,8 @@ class PostsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PostsOutlineCell", for: indexPath) as! PostsOutlineTableViewCell
 
             cell.title.text = DataHolder.sharedInstance.currentCourse.outline[indexPath.row].name
-            cell.counter.text = "0"
+            
+            cell.counter.text = "\(DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[indexPath.row].topicId]?.count ?? 0)"
             
             return cell
         }
@@ -125,14 +128,14 @@ class PostsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//        
+//    }
 
 }

@@ -12,4 +12,7 @@ struct Lecture {
     var title: String
     var contents: String
     var date: String
+    
+    var topicId: String
+    var lectureId: String
 }

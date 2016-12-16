@@ -155,9 +155,14 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         
         networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { topics in
             DataHolder.sharedInstance.currentCourse.outline = topics
+            for topic in topics {
+                self.networkWorker.fetchLectures(for: topic) { lectures in
+                    DataHolder.sharedInstance.currentCourse.posts[topic.topicId] = lectures
+                }
+            }
+            
+            self.performSegue(withIdentifier: "Show Course", sender: self)
         }
-        
-        performSegue(withIdentifier: "Show Course", sender: self)
     }
 
     /*

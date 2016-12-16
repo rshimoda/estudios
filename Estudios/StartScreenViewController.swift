@@ -31,8 +31,8 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
     
     let networkWorker = NetworkWorker()
     
-    var startingGradientColors = [UIColor.flatNavyBlue().cgColor, UIColor.flatNavyBlue().cgColor, UIColor.flatTealColorDark().cgColor, UIColor.flatOrange().cgColor]
-    var finalGradientColors = [UIColor.flatTealColorDark().cgColor, UIColor.flatNavyBlue().cgColor, UIColor.flatOrange().cgColor, UIColor.flatOrangeColorDark().cgColor]
+    var startingGradientColors = [UIColor.flatNavyBlueColorDark().cgColor, UIColor.flatNavyBlue().cgColor, UIColor.flatTealColorDark().cgColor, UIColor.flatOrange().cgColor]
+    var finalGradientColors = [UIColor.flatTealColorDark().cgColor, UIColor.flatSkyBlue().cgColor, UIColor.flatYellowColorDark().cgColor, UIColor.flatOrange().cgColor]
     
     // MARK: - View Controller
 
@@ -82,7 +82,7 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         
         animation.fromValue = fromColors
         animation.toValue = toColors
-        animation.duration = 7.00
+        animation.duration = 15.00
         animation.isRemovedOnCompletion = true
         animation.fillMode = kCAFillModeForwards
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
