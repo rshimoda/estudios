@@ -11,58 +11,60 @@ import DZNEmptyDataSet
 import PermissionScope
 
 class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    
+
     let permissionScope = PermissionScope()
     let networkWorker = NetworkWorker()
-    
+
     var user = DataHolder.sharedInstance.currentUser!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Some preparations for convenient work with keyboard
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
-        
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
+
         // Set null footer for removing empty cells
         tableView.tableFooterView = UIView(frame: CGRect.zero)
 
-        
+
         // Ask for permission to send notifications
         permissionScope.addPermission(NotificationsPermission(), message: "We use this to send you\r\nspam and love notes")
         permissionScope.show()
-        
+
         reloadData()
     }
 
     func reloadData() {
         print("\n\n\nReloading data...")
-        networkWorker.get(user: user.mail) { user in
+        networkWorker.get(user: user.mail) { [weak self] user in
+            guard let strongSelf = self else { return }
+
             print("Finished fetching user Data. Returning to Library.reloadData()")
             DataHolder.sharedInstance.currentUser = user
-            self.user = DataHolder.sharedInstance.currentUser
-            
+            strongSelf.user = DataHolder.sharedInstance.currentUser
+
             print("Reloading table view.")
-            self.tableView.reloadData()
+            strongSelf.tableView.reloadData()
         }
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
-    
+
     // MARK: - DZEmptyDataSet
-    
+
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         return NSAttributedString(string: "No Courses Yet")
     }
-    
+
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         return NSAttributedString(string: "You can enroll to a new course by tapping '+' button using the promo-code your instructor has gave you.")
     }
@@ -90,17 +92,17 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             return user.courses.count
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "courseCell", for: indexPath) as! CourseTableViewCell
 
         // Configure the cell...
         if indexPath.section == 0 && user.isInstructor {
             let course = user.managedCourses[indexPath.row]
-            
+
             cell.courseName.text = course.name
             cell.instructorName.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
-            
+
             if let image = course.image {
                 cell.courseImage.image = image
             } else {
@@ -109,10 +111,10 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             }
         } else {
             let course = user.courses[indexPath.row]
-            
+
             cell.courseName.text = course.name
             cell.instructorName.text = "\(course.instructor.firstName) \(course.instructor.lastName)"
-            
+
             if let image = course.image {
                 cell.courseImage.image = image
             } else {
@@ -120,14 +122,14 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
                 cell.courseTypeLabel.text = course.type
             }
         }
-        
+
         return cell
     }
- 
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 && user.isInstructor {
             return "Managed Courses"
@@ -137,7 +139,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             return ""
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 30.0
@@ -145,23 +147,25 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             return 25.0
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && user.isInstructor {
             DataHolder.sharedInstance.currentCourse = user.managedCourses[indexPath.row]
         } else {
             DataHolder.sharedInstance.currentCourse = user.courses[indexPath.row]
         }
-        
-        networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { topics in
+
+        networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { [weak self] topics in
+            guard let strongSelf = self else { return }
+
             DataHolder.sharedInstance.currentCourse.outline = topics
             for topic in topics {
-                self.networkWorker.fetchLectures(for: topic) { lectures in
+                strongSelf.networkWorker.fetchLectures(for: topic) { lectures in
                     DataHolder.sharedInstance.currentCourse.posts[topic.topicId] = lectures
                 }
             }
-            
-            self.performSegue(withIdentifier: "Show Course", sender: self)
+
+            strongSelf.performSegue(withIdentifier: "Show Course", sender: self)
         }
     }
 
@@ -200,7 +204,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
     }
     */
 
-    
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -208,28 +212,29 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
- 
-    
+
+
     // MARK: - Add a New Course
-    
+
     @IBAction func addNewCourse(_ sender: UIBarButtonItem) {
         if user.isInstructor {
             let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            ac.addAction(UIAlertAction(title: "Create a New Course", style: .default, handler: {(UIAlertAction) -> Void in
+            ac.addAction(UIAlertAction(title: "Create a New Course", style: .default, handler: { (UIAlertAction) -> Void in
                 self.performSegue(withIdentifier: "CreateNewCourse", sender: self)
             }))
-            ac.addAction(UIAlertAction(title: "Apply to the Course", style: .default, handler: {(UIAlertAction) -> Void in
-                self.openPromoField()
+            ac.addAction(UIAlertAction(title: "Apply to the Course", style: .default, handler: { [weak self] (UIAlertAction) -> Void in
+                guard let strongSelf = self else { return }
+                strongSelf.openPromoField()
             }))
             ac.addAction(UIAlertAction(title: NSAttributedString(string: "Cancel", attributes: [NSForegroundColorAttributeName: UIColor.red]).string, style: .cancel, handler: nil))
             ac.view.tintColor = UIColor.flatGreenColorDark()
-            
+
             self.present(ac, animated: true, completion: nil)
         } else {
             openPromoField()
         }
     }
-    
+
     func openPromoField() {
         let ac = UIAlertController(title: "Enter enroll code", message: nil, preferredStyle: .alert)
         ac.addTextField(configurationHandler: { (textField) -> Void in
@@ -240,24 +245,24 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             if let promo = ac.textFields!.first!.text {
                 self.networkWorker.apply(user: self.user.mail, to: promo) {
                     print("Returning to Library.openPromoField()")
-                    
+
                     self.reloadData()
                 }
             }
         }))
         ac.view.tintColor = UIColor.flatGreenColorDark()
-        
+
         present(ac, animated: true, completion: nil)
     }
-    
-    
+
+
     // MARK: - Rewinding
-    
+
     @IBAction func rewindToLibrary(_ sender: UIStoryboardSegue) {
-        
+
     }
-    
-    
+
+
     @IBAction func saveCourse(_ sender: UIStoryboardSegue) {
         if let vc = sender.source as? CourseCreationFormViewController {
             networkWorker.save(course: vc.course) {
@@ -265,7 +270,7 @@ class LibraryTableViewController: UITableViewController, DZNEmptyDataSetSource, 
             }
         }
     }
-    
+
     @IBAction func revindToLibraryAndUnroll(_ sender: UIStoryboardSegue) {
         networkWorker.unroll(user: DataHolder.sharedInstance.currentUser, from: DataHolder.sharedInstance.currentCourse.promo) {
             self.networkWorker.get(user: DataHolder.sharedInstance.currentUser.mail) { user in
@@ -282,7 +287,7 @@ extension UIViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
-    
+
     func dismissKeyboard() {
         view.endEditing(true)
     }

@@ -111,8 +111,11 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         ac.addAction(UIAlertAction(title: "estudios-server", style: .default, handler: { (action) -> Void in
             NetworkWorker.host = "https://estudios-server.herokuapp.com"
         }))
-        ac.addAction(UIAlertAction(title: "Custom...", style: .default, handler: { (action) -> Void in
-            self.setCustomHost()
+        ac.addAction(UIAlertAction(title: "Custom...", style: .default, handler: { [weak self] (action) -> Void in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.setCustomHost()
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
        
@@ -133,9 +136,12 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
             NetworkWorker.host = ac.textFields!.first!.text ?? ""
         }))
         
-        present(ac, animated: true, completion: { (action) -> Void in
-            self.activityIndicator.stopAnimating()
-            self.signInButton.isHidden = false
+        present(ac, animated: true, completion: { [weak self] (action) -> Void  in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.activityIndicator.stopAnimating()
+            strongSelf.signInButton.isHidden = false
         })
     }
     
@@ -192,18 +198,22 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         debugPrint("\n\n\nValidating Entered Values...")
         
         if let mail = mailTextField.text, let password = passwordTextField.text {
-            networkWorker.validate(user: mail, with: password) { wasFound in
+            networkWorker.validate(user: mail, with: password) { [weak self] wasFound in
+                guard let strongSelf = self else {
+                    return
+                }
+                
                 if wasFound {
                     debugPrint("Validated")
                     
-                    self.networkWorker.get(user: mail) { user in
+                    strongSelf.networkWorker.get(user: mail) { user in
                         DataHolder.sharedInstance.currentUser = user
                         DataHolder.sharedInstance.isAuthorized = true
                         
-                        self.activityIndicator.stopAnimating()
-                        self.signInButton.isHidden = false
+                        strongSelf.activityIndicator.stopAnimating()
+                        strongSelf.signInButton.isHidden = false
                         
-                        self.performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
+                        strongSelf.performSegue(withIdentifier: "OpenCourseLibrary", sender: self)
                     }
                 } else {
                     debugPrint("Validation failed")
@@ -211,10 +221,10 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
                     let ac = UIAlertController(title: "Authorization Failed", message: "No such user or problems with Internet connection", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "Try again", style: .cancel, handler: nil))
                     
-                    self.activityIndicator.stopAnimating()
-                    self.signInButton.isHidden = false
+                    strongSelf.activityIndicator.stopAnimating()
+                    strongSelf.signInButton.isHidden = false
                     
-                    self.present(ac, animated: true, completion: nil)
+                    strongSelf.present(ac, animated: true, completion: nil)
                 }
             }
         }
@@ -243,9 +253,13 @@ class StartScreenViewController: UIViewController, UITextFieldDelegate, CAAnimat
         signInButton.isHidden = true
         activityIndicator.startAnimating()
         
-        networkWorker.save(user: DataHolder.sharedInstance.currentUser) {
-            self.activityIndicator.stopAnimating()
-            self.signInButton.isHidden = false
+        networkWorker.save(user: DataHolder.sharedInstance.currentUser) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.activityIndicator.stopAnimating()
+            strongSelf.signInButton.isHidden = false
         }
     }
 }

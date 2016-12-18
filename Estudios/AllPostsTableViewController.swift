@@ -109,14 +109,16 @@ class AllPostsTableViewController: UITableViewController, DZNEmptyDataSetSource,
             
             if let lecture = DataHolder.sharedInstance.currentCourse.posts[DataHolder.sharedInstance.currentCourse.outline[indexPath.section].topicId]?[indexPath.row] {
                 self.networkWorker.delete(lecture: lecture) {
-                    self.networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { topics in
+                    self.networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) {[weak self] topics in
+                        guard let strongSelf = self else { return }
+                        
                         DataHolder.sharedInstance.currentCourse.outline = topics
                         for topic in topics {
-                            self.networkWorker.fetchLectures(for: topic) { lectures in
+                            strongSelf.networkWorker.fetchLectures(for: topic) { lectures in
                                 DataHolder.sharedInstance.currentCourse.posts[topic.topicId] = lectures
                             }
                         }
-                        self.tableView.reloadData()
+                        strongSelf.tableView.reloadData()
                     }
 
                 }

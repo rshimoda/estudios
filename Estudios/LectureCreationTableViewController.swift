@@ -138,15 +138,19 @@ class LectureCreationTableViewController: UITableViewController, UIPickerViewDat
     
     @IBAction func saveLecture(_ sender: Any) {
         let lecture = Lecture(title: name.text ?? "", contents: descriptionTextField.text ?? "", date: "\(Date())", topicId: outlineDict[topicTextField.text!]!, lectureId: "\(outlineDict[topicTextField.text!]!)-\(DataHolder.sharedInstance.currentCourse.posts[outlineDict[topicTextField.text!]!]?.count)")
-        networkWorker.save(lecture: lecture) {
-            self.networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { topics in
+        networkWorker.save(lecture: lecture) { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { [weak self] topics in
+                guard let strongSelf = self else { return }
+                
                 DataHolder.sharedInstance.currentCourse.outline = topics
                 for topic in topics {
-                    self.networkWorker.fetchLectures(for: topic) { lectures in
+                    strongSelf.networkWorker.fetchLectures(for: topic) { lectures in
                         DataHolder.sharedInstance.currentCourse.posts[topic.topicId] = lectures
                     }
                 }
-                self.dismiss(animated: true, completion: nil)
+                strongSelf.dismiss(animated: true, completion: nil)
             }
         }
         

@@ -71,8 +71,10 @@ class OutlineTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            networkWorker.delete(topic: outline[indexPath.row]) {
-                self.outline.remove(at: indexPath.row)
+            networkWorker.delete(topic: outline[indexPath.row]) { [weak self] in
+                guard let strongSelf = self else { return }
+                
+                strongSelf.outline.remove(at: indexPath.row)
                 DataHolder.sharedInstance.currentCourse.outline.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
@@ -112,15 +114,19 @@ class OutlineTableViewController: UITableViewController {
         ac.addTextField(configurationHandler: { textField in
             textField.placeholder = "Introduction"
         })
-        ac.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
+        ac.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] action in
+            guard let strongSelf = self else { return }
+            
             if let topicName = ac.textFields?.first?.text {
-                let topic = Topic(promo: DataHolder.sharedInstance.currentCourse.promo, topicId: "\(DataHolder.sharedInstance.currentCourse.promo)-\(self.outline.count + 1)", name: topicName)
+                let topic = Topic(promo: DataHolder.sharedInstance.currentCourse.promo, topicId: "\(DataHolder.sharedInstance.currentCourse.promo)-\(strongSelf.outline.count + 1)", name: topicName)
                 
-                self.networkWorker.save(topic: topic, completion: {
-                    self.networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) { topics in
+                strongSelf.networkWorker.save(topic: topic, completion: {
+                    strongSelf.networkWorker.fetchTopics(for: DataHolder.sharedInstance.currentCourse.promo) {[weak self] topics in
+                        guard let strongSelf = self else { return }
+                        
                         DataHolder.sharedInstance.currentCourse.outline.append(topic)
-                        self.outline += [topic]
-                        self.tableView.reloadData()
+                        strongSelf.outline += [topic]
+                        strongSelf.tableView.reloadData()
                     }
                 })
             }
